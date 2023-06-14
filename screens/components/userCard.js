@@ -20,7 +20,7 @@ export default function UserCard({ name, img }) {
 
 const styles = StyleSheet.create({
     cardContainer: {
-        height: sHeight * 0.10,
+        height: sHeight * 0.12,
         width: sWidth * 0.9,
         backgroundColor: "white",
         elevation: 2, // Set the elevation to create a shadow effect
@@ -38,15 +38,16 @@ const styles = StyleSheet.create({
         padding: sWidth * 0.05
     },
     profileImg: {
-        height: sHeight * 0.06,
-        width: sHeight * 0.06,
-        borderRadius: sHeight * 0.06,
+        height: sHeight * 0.09,
+        width: sHeight * 0.09,
+        borderRadius: sHeight * 0.005,
+        flexWrap: "wrap"
     },
     username: {
-        color: "black",
+        color: "#084907",
         fontFamily: "RobotoSlab-Bold",
         fontSize: 18,
-        width: sWidth * 0.8 - sHeight * 0.06,
-        paddingLeft: sWidth * 0.05
+        width: sWidth * 0.8 - sHeight * 0.09,
+        paddingLeft: sWidth * 0.05,
     }
 })

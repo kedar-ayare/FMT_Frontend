@@ -5,8 +5,7 @@ import React from 'react'
 let sHeight = Dimensions.get('window').height;
 let sWidth = Dimensions.get('window').width;
 
-export default function SearchBar({ query, setQuery }) {
-
+export default function SearchBar({ query, setQuery, handleInput }) {
     return (
         <View style={styles.searchContainer}>
             <View style={styles.searchBox}>
@@ -20,11 +19,9 @@ export default function SearchBar({ query, setQuery }) {
                 <TextInput style={styles.searchField}
                     placeholder='Enter Username'
                     placeholderTextColor="#9C9A9A"
-                    onEndEditing={() => {
-                        console.log("Something")
-                    }}
-                    onChange={(value) => {
-                        setQuery(value)
+                    onEndEditing={handleInput}
+                    onChangeText={(val) => {
+                        setQuery(val)
                     }}
                     value={query}
                 />

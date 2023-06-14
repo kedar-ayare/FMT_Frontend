@@ -14,11 +14,9 @@ export default function Search() {
     const [query, setQuery] = useState("");
 
 
-    useEffect(() => {
-        console.log("Inside useEffect")
-        console.log(query)
-
-    }, [query])
+    function handleInput() {
+        console.log("Final Value:", query)
+    }
 
 
     function queryResult() {
@@ -56,6 +54,7 @@ export default function Search() {
             <SearchBar
                 query={query}
                 setQuery={setQuery}
+                handleInput={handleInput}
             />
             <ScrollView>
                 {
@@ -70,8 +69,8 @@ export default function Search() {
 }
 const styles = StyleSheet.create({
     main: {
-        height: sHeight,
-        width: sWidth,
+        height: sHeight * 0.9,
+        width: sWidth * 0.9,
         backgroundColor: "white",
     },
     searchPrev: {
