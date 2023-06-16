@@ -21,7 +21,7 @@ export default function BottomNav({ navOpt, handleTap }) {
                 }}
             >
                 <Image
-                    source={navOpt === "home" ? require("../assets/home-bold.png") : require("../assets/home.png")}
+                    source={navOpt === "home" ? require("../../assets/home-bold.png") : require("../../assets/home.png")}
                     style={styles.navImg} />
             </TouchableOpacity>
 
@@ -32,8 +32,30 @@ export default function BottomNav({ navOpt, handleTap }) {
                 }}
             >
                 <Image
-                    source={navOpt === "search" ? require("../assets/search-bold.png") : require("../assets/search.png")} style={styles.navImg} />
+                    source={navOpt === "search" ? require("../../assets/search-bold.png") : require("../../assets/search.png")} style={styles.navImg} />
             </TouchableOpacity>
+
+            <TouchableOpacity
+                style={styles.navButton}
+                onPress={() => {
+                    handleTap("newpost")
+                }}
+            >
+                <Image
+                    source={navOpt === "newpost" ? require("../../assets/newPost-bold.png") : require("../../assets/newPost.png")} style={styles.navImg} />
+            </TouchableOpacity>
+
+
+            <TouchableOpacity
+                style={styles.navButton}
+                onPress={() => {
+                    handleTap("like")
+                }}
+            >
+                <Image
+                    source={navOpt === "like" ? require("../../assets/heart-bold.png") : require("../../assets/heart.png")} style={styles.navImg} />
+            </TouchableOpacity>
+
 
             <TouchableOpacity
                 style={styles.navButton}
@@ -43,6 +65,8 @@ export default function BottomNav({ navOpt, handleTap }) {
             >
                 <Image source={{ uri: 'https://myfamtree.000webhostapp.com/appImages/kedar.jpg' }} style={[styles.navImg, styles.profileImg]} />
             </TouchableOpacity>
+
+
 
 
         </View>

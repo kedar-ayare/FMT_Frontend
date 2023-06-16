@@ -1,10 +1,11 @@
-import { View, Text, StyleSheet, Dimensions } from 'react-native'
+import { View, Text, StyleSheet, Dimensions, } from 'react-native'
 import React from 'react'
 
 import { useState, useEffect } from 'react';
 
-import BottomNav from './bottomNav';
+import BottomNav from './components/bottomNav';
 import Search from './search';
+import UserScreen from './userScreen';
 
 let sHeight = Dimensions.get('window').height;
 let sWidth = Dimensions.get('window').width;
@@ -12,7 +13,7 @@ let sWidth = Dimensions.get('window').width;
 
 export default function MainWrapper() {
 
-    const [navOpt, setNavOpt] = useState("home");
+    const [navOpt, setNavOpt] = useState("profile");
 
     function handleTap(value) {
 
@@ -28,7 +29,10 @@ export default function MainWrapper() {
             return <View style={styles.content} />
         } else if (navOpt === "search") {
             return <Search />
-        } else {
+        } else if (navOpt === "profile") {
+            return <UserScreen />
+        }
+        else {
             return <View style={styles.content} />
         }
     }
