@@ -14,7 +14,7 @@ export default function Header() {
 
 const styles = StyleSheet.create({
     headerBox: {
-        height: sHeight * 0.1,
+        height: sHeight * 0.08,
         width: sWidth,
         backgroundColor: "white",
         display: "flex",

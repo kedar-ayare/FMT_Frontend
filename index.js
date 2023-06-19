@@ -11,6 +11,7 @@ import register_2 from './screens/register_2';
 import otpScreen from './screens/otpScreen';
 import Search from './screens/search';
 import MainWrapper from './screens/mainWrapper';
+import SearchWrapper from './screens/searchWrapper';
 
 import { name as appName } from './app.json';
 import asyncStorage from './screens/asyncStorage';

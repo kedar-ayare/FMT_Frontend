@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Dimensions, Image, TouchableOpacity, } from 'react-native'
+import { View, Text, StyleSheet, Dimensions, Image, TouchableOpacity, useNavigation } from 'react-native'
 import React from 'react'
 
 import { useState, useEffect } from 'react';
@@ -74,7 +74,7 @@ export default function BottomNav({ navOpt, handleTap }) {
 }
 const styles = StyleSheet.create({
     main: {
-        height: sHeight * 0.1,
+        height: sHeight * 0.08,
         backgroundColor: "white",
         width: sWidth,
 
@@ -93,8 +93,8 @@ const styles = StyleSheet.create({
         paddingBottom: sHeight * 0.01
     },
     navImg: {
-        height: sHeight * 0.04,
-        width: sHeight * 0.04,
+        height: sHeight * 0.035,
+        width: sHeight * 0.035,
     },
     profileImg: {
         borderRadius: sHeight * 0.2

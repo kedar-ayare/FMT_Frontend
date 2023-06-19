@@ -1,15 +1,13 @@
-import { StyleSheet, Text, View, RefreshControl, ScrollView, Dimensions } from 'react-native'
-import React from 'react'
-import { useState } from 'react';
+import { View, Text, RefreshControl, ScrollView } from 'react-native'
+import React, { useState } from 'react'
 
 import UserScreenHeader from './components/UserScreenHeader';
+import ProfileScreenButtons from './components/ProfileScreenButtons';
 import UserPosts from './userPosts';
 
 
-let sHeight = Dimensions.get('window').height;
-let sWidth = Dimensions.get('window').width;
 
-export default function UserScreen() {
+export default function ProfileScreen() {
 
     const [refreshing, setRefreshing] = useState();
     function onRefresh() {
@@ -26,14 +24,10 @@ export default function UserScreen() {
             <UserScreenHeader />
 
             {/* Height 0.14 */}
-            {/* <ProfileScreenButtons /> */}
+            <ProfileScreenButtons />
 
-            <UserPosts />
+            {/* <UserPosts /> */}
         </ScrollView>
 
     )
 }
-
-const styles = StyleSheet.create({
-
-})

@@ -5,9 +5,14 @@ let sHeight = Dimensions.get('window').height;
 let sWidth = Dimensions.get('window').width;
 
 
-export default function UserCard({ name, img }) {
+export default function UserCard({ name, img, userTap }) {
+
+    // console.log(typeof (userTap))
     return (
-        <TouchableOpacity style={styles.cardContainer}>
+        <TouchableOpacity style={styles.cardContainer} onPress={() => {
+            // console.log("Something")
+            userTap(name)
+        }}>
 
             <Image source={{ uri: img }}
                 style={styles.profileImg}

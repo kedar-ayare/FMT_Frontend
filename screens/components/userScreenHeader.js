@@ -4,7 +4,7 @@ import React from 'react'
 let sHeight = Dimensions.get('window').height;
 let sWidth = Dimensions.get('window').width;
 
-export default function UserScreenHeader() {
+export default function ProfileScreenHeader() {
     return (
         <View style={styles.main}>
 
