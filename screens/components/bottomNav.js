@@ -49,11 +49,12 @@ export default function BottomNav({ navOpt, handleTap }) {
             <TouchableOpacity
                 style={styles.navButton}
                 onPress={() => {
-                    handleTap("like")
+                    console.log("noti")
+                    handleTap("notification")
                 }}
             >
                 <Image
-                    source={navOpt === "like" ? require("../../assets/heart-bold.png") : require("../../assets/heart.png")} style={styles.navImg} />
+                    source={navOpt === "notification" ? require("../../assets/heart-bold.png") : require("../../assets/heart.png")} style={styles.navImg} />
             </TouchableOpacity>
 
 

@@ -7,6 +7,7 @@ import BottomNav from './components/bottomNav';
 import ProfileScreen from './profileScreen';
 import Home from './home';
 import SearchWrapper from './searchWrapper';
+import Notifications from './notifications';
 
 let sHeight = Dimensions.get('window').height;
 let sWidth = Dimensions.get('window').width;
@@ -32,6 +33,8 @@ export default function MainWrapper() {
             return <SearchWrapper />
         } else if (navOpt === "profile") {
             return <ProfileScreen />
+        } else if (navOpt === "notification") {
+            return <Notifications />
         }
         else {
             return <View style={styles.content} />
