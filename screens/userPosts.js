@@ -7,7 +7,12 @@ import PostCard from './components/postCard';
 let sHeight = Dimensions.get('window').height;
 let sWidth = Dimensions.get('window').width;
 
-export default function UserPosts() {
+
+
+export default function UserPosts({ allCommentTap }) {
+
+
+
 
     const posts = [
         {
@@ -17,6 +22,26 @@ export default function UserPosts() {
             "caption": "Ayare Family goes for vacation.",
             "likes": 36,
             "liked": true,
+            "comments": [
+                {
+                    "id": "1",
+                    "username": "Vilas Ayare",
+                    "userImg": "https://myfamtree.000webhostapp.com/appImages/vilas.jpg",
+                    "comment": "Very Excited  Very Excited Very Excited Very Excited Very Excited Very Excited Very Excited Very Excited Very Excited Very Excited Very Excited Very Excited Very Excited",
+                },
+                {
+                    "id": "1",
+                    "username": "Ranjana Ayare",
+                    "userImg": "https://myfamtree.000webhostapp.com/appImages/ranjana.jpg",
+                    "comment": "Wohoo!!",
+                },
+                {
+                    "id": "1",
+                    "username": "Kavita Ayare",
+                    "userImg": "https://myfamtree.000webhostapp.com/appImages/kavita.jpg",
+                    "comment": "Very Nice",
+                }
+            ]
         },
         {
             "userImg": "https://myfamtree.000webhostapp.com/appImages/shubhash.jpg",
@@ -25,6 +50,8 @@ export default function UserPosts() {
             "caption": "Kid meets his idols",
             "likes": 360,
             liked: false,
+            "comments": [
+            ]
         },
         {
             "userImg": "https://myfamtree.000webhostapp.com/appImages/siddi.jpg",
@@ -33,16 +60,24 @@ export default function UserPosts() {
             "caption": "I got 90% in my exams. So happy!!!",
             "likes": 420,
             "liked": true,
+            "comments": [
+                {
+                    "id": "1",
+                    "username": "Shrawani Ayare",
+                    "userImg": "https://myfamtree.000webhostapp.com/appImages/shrawani.jpg",
+                    "comment": "Congrulations",
+                }
+            ]
         },
 
     ]
 
-    console.log(posts.length)
+
+
     function renderPosts() {
 
         // If no posts - "posts" is empty
         if (posts.length === 0) {
-            console.log("here")
             return <View style={styles.noPostMsg}>
                 <Image style={styles.noPostImg} source={{ uri: "https://myfamtree.000webhostapp.com/appImages/postsIcon.png" }}></Image>
                 <Text style={styles.noPostMsgText}>User has no posts</Text>
@@ -55,6 +90,7 @@ export default function UserPosts() {
                     <PostCard
                         key={i}
                         postData={posts[i]}
+                        allCommentTap={allCommentTap}
                     />
                 )
             }

@@ -7,31 +7,64 @@ import { useState } from 'react';
 let sHeight = Dimensions.get('window').height;
 let sWidth = Dimensions.get('window').width;
 
+import CommentCard from './commentCardMini';
+
 const MAX_IMAGE_HEIGHT = sHeight * 0.3;
 
-export default function PostCard({ postData }) {
+export default function PostCard({ postData, allCommentTap }) {
+
+    function commentsRender() {
+        if (postData.comments.length === 0) {
+            return <></>
+        } else if (postData.comments.length === 1) {
+            return <CommentCard comment={postData.comments[0]} />
+        }
+        else {
+            return <>
+                <TouchableOpacity
+                    style={{ paddingHorizontal: sHeight * 0.01 }}
+                    onPress={() => {
+                        allCommentTap(postData.comments)
+                    }}
+                >
+                    <Text style={{ fontSize: 15, fontFamily: "RobotoSlab-Regular", color: "#999" }}>View all {postData.comments.length} comments.</Text>
+                </TouchableOpacity>
+                <CommentCard comment={postData.comments[0]} />
+
+            </>
+        }
+    }
 
 
     function postRender() {
-        if (postData["postImg"] !== "") {
+        if (postData.postImg !== "") {
             return <>
-                <ConditionalImage source={postData["postImg"]} />
-                <PostActions liked={postData["liked"]} />
+                <ConditionalImage source={postData.postImg} />
+                <PostActions liked={postData.liked} />
                 <View style={styles.caption}>
 
                     <Text style={styles.captionText}>
                         <Text style={styles.captionUsername}>
-                            {postData["username"]}:
+                            {postData.username}:
                         </Text>
-                        {"  "}{postData["caption"]}
+                        {"  "}{postData.caption}
                     </Text>
                 </View>
+                {
+                    commentsRender()
+                }
+
+
+
             </>
 
         } else {
             return <>
-                <TextPost postText={postData["caption"]} />
-                <PostActions liked={postData["liked"]} />
+                <TextPost postText={postData.caption} />
+                <PostActions liked={postData.liked} />
+                {
+                    commentsRender()
+                }
             </>
         }
     }
@@ -91,6 +124,7 @@ const PostActions = ({ liked }) => {
     const [like, setLiked] = useState(liked);
     return (
         <View style={styles.actions}>
+
             <TouchableOpacity
                 style={styles.actionBox}
                 onPress={() => {
@@ -101,6 +135,7 @@ const PostActions = ({ liked }) => {
                     source={like ? require("../../assets/liked.png") : require("../../assets/like.png")}
                     style={styles.actionIcon} />
             </TouchableOpacity>
+
             <TouchableOpacity style={styles.actionBox}>
                 <Image
                     source={require("../../assets/comment.png")}

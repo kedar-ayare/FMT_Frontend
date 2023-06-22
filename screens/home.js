@@ -7,13 +7,23 @@ import UserPosts from './userPosts';
 let sHeight = Dimensions.get('window').height;
 let sWidth = Dimensions.get('window').width;
 
+import { useNavigation } from '@react-navigation/native';
+
 export default function Home() {
     console.log("In Home")
+
+    const navigation = useNavigation();
+
+    function allCommentTap(comments) {
+        navigation.navigate('AllComments', { comments });
+    }
+
+
     return (
         <View style={styles.main}>
             <Header />
             <ScrollView>
-                <UserPosts />
+                <UserPosts allCommentTap={allCommentTap} />
             </ScrollView>
         </View>
     )

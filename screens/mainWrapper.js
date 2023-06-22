@@ -5,8 +5,12 @@ import { useState, useEffect } from 'react';
 
 import BottomNav from './components/bottomNav';
 import ProfileScreen from './profileScreen';
-import Home from './home';
+
 import SearchWrapper from './searchWrapper';
+import HomeWrapper from './homeWrapper';
+
+import NewPost from './newPost';
+
 import Notifications from './notifications';
 
 let sHeight = Dimensions.get('window').height;
@@ -28,13 +32,16 @@ export default function MainWrapper() {
 
     function renderDisplay() {
         if (navOpt === "home") {
-            return <Home />
+            return <HomeWrapper />
         } else if (navOpt === "search") {
             return <SearchWrapper />
         } else if (navOpt === "profile") {
             return <ProfileScreen />
         } else if (navOpt === "notification") {
             return <Notifications />
+        }
+        else if (navOpt === "newpost") {
+            return <NewPost />
         }
         else {
             return <View style={styles.content} />

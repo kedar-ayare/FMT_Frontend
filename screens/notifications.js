@@ -74,7 +74,7 @@ export default function Notifications() {
         var notiList = []
 
         for (var i = 0; i < notifications.length; i++) {
-            if (notifications[i]["type"] == "comment") {
+            if (notifications[i].type === "comment") {
                 notiList.push(<CommentCard key={i} data={notifications[i]} />)
             } else {
                 notiList.push(<LikeCard key={i} data={notifications[i]} />)
@@ -117,21 +117,21 @@ export default function Notifications() {
 const CommentCard = ({ data }) => {
     return (
         <View style={styles.cardMain}>
-            <Image source={{ uri: data["userImg"] }} style={styles.userImg} />
+            <Image source={{ uri: data.userImg }} style={styles.userImg} />
             <Text style={styles.commentText}>
-                <Text style={{ fontWeight: "bold" }}>{data["username"]} </Text>
-                commented on your post: "{data["content"]}"
+                <Text style={{ fontWeight: "bold" }}>{data.username} </Text>
+                commented on your post: "{data.content}"
             </Text>
-            <Image source={{ uri: data["postImg"] }} style={styles.postImg} />
+            <Image source={{ uri: data.postImg }} style={styles.postImg} />
         </View>
     );
 };
 const LikeCard = ({ data }) => {
     return (
         <View style={styles.cardMain}>
-            <Image source={{ uri: data["userImg"] }} style={styles.userImg} />
-            <Text style={styles.likeText} ><Text style={{ fontWeight: "bold" }}>{data["username"]}</Text> liked your post</Text>
-            <Image source={{ uri: data["postImg"] }} style={styles.postImg} />
+            <Image source={{ uri: data.userImg }} style={styles.userImg} />
+            <Text style={styles.likeText} ><Text style={{ fontWeight: "bold" }}>{data.username}</Text> liked your post</Text>
+            <Image source={{ uri: data.postImg }} style={styles.postImg} />
         </View>
     );
 };
