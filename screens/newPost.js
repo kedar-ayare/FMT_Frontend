@@ -17,8 +17,10 @@ export default function NewPost() {
 
     const pickImage = () => {
         launchImageLibrary(options, (value) => {
-            var newImages = images.concat(value.assets)
-            setImages(newImages)
+            if (value.assets !== undefined) {
+                var newImages = images.concat(value.assets)
+                setImages(newImages)
+            }
         })
 
     };
@@ -33,6 +35,7 @@ export default function NewPost() {
 
     function renderImages() {
         var imageList = []
+        console.log(images.length)
         if (images !== undefined && images.length > 0) {
             for (var i = 0; i < images.length; i++) {
                 imageList.push(
@@ -192,7 +195,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: 10,
         right: 10,
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        backgroundColor: 'rgba(8, 73, 7, 0.5)',
         borderRadius: 15,
         width: 30,
         height: 30,
