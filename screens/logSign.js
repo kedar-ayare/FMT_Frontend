@@ -1,39 +1,53 @@
 import { ImageBackground, Text, View, StyleSheet, Dimensions, TouchableOpacity } from 'react-native'
 import React, { Component } from 'react'
 
+import { useNavigation } from '@react-navigation/native';
+
 let sHeight = Dimensions.get('window').height;
 let sWidth = Dimensions.get('window').width;
-export default class logSign extends Component {
-    render() {
-        return (
-            <ImageBackground source={require("../assets/bgImg.jpg")} style={styles.bgImg}>
-                <View style={styles.main}>
-                    <View style={styles.introTextBox}>
-                        <Text style={styles.introText}>Discover your roots and connect with your family</Text>
-                    </View>
-                    <View style={styles.buttonContainer}>
-                        <TouchableOpacity
-                            style={styles.button}
-                            onPress={() => {
-                                console.log("Selected Log In Option")
-                            }}
-                        >
-                            <Text style={styles.buttonText}>Log In</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={styles.button}
-                            onPress={() => {
-                                console.log("Selected Sign In Option")
-                            }}
-                        >
-                            <Text style={styles.buttonText}>Sign In</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-            </ImageBackground>
-        )
+
+
+export default function LogSign({ navigation }) {
+    console.info("Inside LogSign")
+
+
+    function LogIn() {
+        navigation.navigate('LogIn', {});
     }
+
+    function SignIn() {
+        navigation.navigate('Register1', {});
+    }
+
+    return (
+        <ImageBackground source={require("../assets/bgImg.jpg")} style={styles.bgImg}>
+            <View style={styles.main}>
+                <View style={styles.introTextBox}>
+                    <Text style={styles.introText}>Discover your roots and connect with your family</Text>
+                </View>
+                <View style={styles.buttonContainer}>
+                    <TouchableOpacity
+                        style={styles.button}
+                        onPress={() => {
+                            LogIn()
+                        }}
+                    >
+                        <Text style={styles.buttonText}>Log In</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.button}
+                        onPress={() => {
+                            SignIn()
+                        }}
+                    >
+                        <Text style={styles.buttonText}>Sign In</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        </ImageBackground>
+    )
 }
+
 
 
 const styles = StyleSheet.create({
@@ -86,3 +100,60 @@ const styles = StyleSheet.create({
         color: "white"
     }
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// export default class logSign extends Component {
+//     render() {
+//         return (
+//             <ImageBackground source={require("../assets/bgImg.jpg")} style={styles.bgImg}>
+//                 <View style={styles.main}>
+//                     <View style={styles.introTextBox}>
+//                         <Text style={styles.introText}>Discover your roots and connect with your family</Text>
+//                     </View>
+//                     <View style={styles.buttonContainer}>
+//                         <TouchableOpacity
+//                             style={styles.button}
+//                             onPress={() => {
+//                                 console.log("Selected Log In Option")
+//                             }}
+//                         >
+//                             <Text style={styles.buttonText}>Log In</Text>
+//                         </TouchableOpacity>
+//                         <TouchableOpacity
+//                             style={styles.button}
+//                             onPress={() => {
+//                                 console.log("Selected Sign In Option")
+//                             }}
+//                         >
+//                             <Text style={styles.buttonText}>Sign In</Text>
+//                         </TouchableOpacity>
+//                     </View>
+//                 </View>
+//             </ImageBackground>
+//         )
+//     }
+// }

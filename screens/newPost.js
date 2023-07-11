@@ -35,7 +35,6 @@ export default function NewPost() {
 
     function renderImages() {
         var imageList = []
-        console.log(images.length)
         if (images !== undefined && images.length > 0) {
             for (var i = 0; i < images.length; i++) {
                 imageList.push(

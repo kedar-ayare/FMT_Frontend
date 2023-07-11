@@ -35,24 +35,24 @@ export default function Search() {
         if (query === "" || query == null) {
             return <View style={styles.searchPrev}>
                 <Text style={{ color: "#999", fontFamily: "RobotoSlab-Bold", fontSize: 16, marginTop: sHeight * 0.02, marginBottom: sHeight * 0.02 }}>Previously Searched Profiles</Text>
-                <UserCard name="Kedar Ayare" img="https://myfamtree.000webhostapp.com/appImages/kedar.jpg" userTap={userTap} />
-                <UserCard name="Shrawani Ayare" img="https://myfamtree.000webhostapp.com/appImages/shrawani.jpg" userTap={userTap} />
-                <UserCard name="Vilas Ayare" img="https://myfamtree.000webhostapp.com/appImages/vilas.jpg" userTap={userTap} />
-                <UserCard name="Siddhi Ayare" img="https://myfamtree.000webhostapp.com/appImages/siddi.jpg" userTap={userTap} />
-                <UserCard name="Revati Ayare" img="https://myfamtree.000webhostapp.com/appImages/revati.jpg" userTap={userTap} />
+                <UserCard name="Kedar Ayare" img="https://myfamtree.000webhostapp.com/kedar.jpg" userTap={userTap} />
+                <UserCard name="Shrawani Ayare" img="https://myfamtree.000webhostapp.com/shrawani.jpg" userTap={userTap} />
+                <UserCard name="Vilas Ayare" img="https://myfamtree.000webhostapp.com/vilas.jpg" userTap={userTap} />
+                <UserCard name="Siddhi Ayare" img="https://myfamtree.000webhostapp.com/siddi.jpg" userTap={userTap} />
+                <UserCard name="Revati Ayare" img="https://myfamtree.000webhostapp.com/revati.jpg" userTap={userTap} />
 
             </View>
         } else {
             return <View style={styles.searchQueries}>
-                <UserCard name="Kedar Ayare" img="https://myfamtree.000webhostapp.com/appImages/kedar.jpg" userTap={userTap} />
-                <UserCard name="Shrawani Ayare" img="https://myfamtree.000webhostapp.com/appImages/shrawani.jpg" userTap={userTap} />
-                <UserCard name="Vilas Ayare" img="https://myfamtree.000webhostapp.com/appImages/vilas.jpg" userTap={userTap} />
-                <UserCard name="Siddhi Ayare" img="https://myfamtree.000webhostapp.com/appImages/siddi.jpg" userTap={userTap} />
-                <UserCard name="Revati Ayare" img="https://myfamtree.000webhostapp.com/appImages/revati.jpg" userTap={userTap} />
-                <UserCard name="Shrawani Ayare" img="https://myfamtree.000webhostapp.com/appImages/shrawani.jpg" userTap={userTap} />
-                <UserCard name="Vilas Ayare" img="https://myfamtree.000webhostapp.com/appImages/vilas.jpg" userTap={userTap} />
-                <UserCard name="Siddhi Ayare" img="https://myfamtree.000webhostapp.com/appImages/siddi.jpg" userTap={userTap} />
-                <UserCard name="Revati Ayare" img="https://myfamtree.000webhostapp.com/appImages/revati.jpg" userTap={userTap} />
+                <UserCard name="Kedar Ayare" img="https://myfamtree.000webhostapp.com/kedar.jpg" userTap={userTap} />
+                <UserCard name="Shrawani Ayare" img="https://myfamtree.000webhostapp.com/shrawani.jpg" userTap={userTap} />
+                <UserCard name="Vilas Ayare" img="https://myfamtree.000webhostapp.com/vilas.jpg" userTap={userTap} />
+                <UserCard name="Siddhi Ayare" img="https://myfamtree.000webhostapp.com/siddi.jpg" userTap={userTap} />
+                <UserCard name="Revati Ayare" img="https://myfamtree.000webhostapp.com/revati.jpg" userTap={userTap} />
+                <UserCard name="Shrawani Ayare" img="https://myfamtree.000webhostapp.com/shrawani.jpg" userTap={userTap} />
+                <UserCard name="Vilas Ayare" img="https://myfamtree.000webhostapp.com/vilas.jpg" userTap={userTap} />
+                <UserCard name="Siddhi Ayare" img="https://myfamtree.000webhostapp.com/siddi.jpg" userTap={userTap} />
+                <UserCard name="Revati Ayare" img="https://myfamtree.000webhostapp.com/revati.jpg" userTap={userTap} />
 
             </View>
         }

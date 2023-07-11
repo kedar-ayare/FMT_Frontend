@@ -4,7 +4,7 @@ import React from 'react'
 
 let sHeight = Dimensions.get('window').height;
 let sWidth = Dimensions.get('window').width;
-export default function register_2() {
+export default function Register_2() {
 
 
     return (

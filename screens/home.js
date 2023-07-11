@@ -10,7 +10,6 @@ let sWidth = Dimensions.get('window').width;
 import { useNavigation } from '@react-navigation/native';
 
 export default function Home() {
-    console.log("In Home")
 
     const navigation = useNavigation();
 

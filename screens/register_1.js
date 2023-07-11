@@ -1,10 +1,12 @@
 import { ImageBackground, StyleSheet, Text, View, Dimensions, Image, TextInput, Touchable, TouchableOpacity } from 'react-native'
 import React from 'react'
-
+import { StackActions, useNavigation } from '@react-navigation/native';
 
 let sHeight = Dimensions.get('window').height;
 let sWidth = Dimensions.get('window').width;
-export default function register_1() {
+export default function Register_1() {
+
+    const navigation = useNavigation()
 
 
     return (
@@ -38,10 +40,18 @@ export default function register_1() {
                     />
                 </View>
                 <View style={styles.buttonBox}>
-                    <TouchableOpacity style={styles.button}>
+                    <TouchableOpacity style={styles.button}
+                        onPress={() => {
+                            navigation.dispatch(StackActions.pop())
+                        }}
+                    >
                         <Text style={styles.buttonText}>Previous</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.button}>
+                    <TouchableOpacity style={styles.button}
+                        onPress={() => {
+                            navigation.navigate('Register2', {})
+                        }}
+                    >
                         <Text style={styles.buttonText}>Next</Text>
                     </TouchableOpacity>
                 </View>

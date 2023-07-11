@@ -24,7 +24,7 @@ export default function MainWrapper() {
     function handleTap(value) {
 
         if (value !== navOpt) {
-            console.log(value);
+            console.log("Inside: ", value);
             setNavOpt(value)
         }
 

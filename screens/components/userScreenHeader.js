@@ -11,7 +11,7 @@ export default function ProfileScreenHeader() {
             <View style={{ height: sHeight * 0.13, display: "flex", flexDirection: "row", width: sWidth, alignItems: "flex-end" }}>
 
                 <View style={styles.imgBox}>
-                    <Image source={{ uri: 'https://myfamtree.000webhostapp.com/appImages/kedar.jpg' }}
+                    <Image source={{ uri: 'https://myfamtree.000webhostapp.com/kedar.jpg' }}
                         style={styles.profileImg}
                     />
 
