@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Dimensions, } from 'react-native'
+import { View, StyleSheet, Dimensions, } from 'react-native'
 import React from 'react'
 
 import { useState, useEffect } from 'react';
@@ -17,9 +17,9 @@ let sHeight = Dimensions.get('window').height;
 let sWidth = Dimensions.get('window').width;
 
 
-export default function MainWrapper() {
+export default function MainWrapper({ logout }) {
 
-    const [navOpt, setNavOpt] = useState("profile");
+    const [navOpt, setNavOpt] = useState("search");
 
     function handleTap(value) {
 
@@ -36,7 +36,7 @@ export default function MainWrapper() {
         } else if (navOpt === "search") {
             return <SearchWrapper />
         } else if (navOpt === "profile") {
-            return <ProfileScreen />
+            return <ProfileScreen logout={logout} />
         } else if (navOpt === "notification") {
             return <Notifications />
         }

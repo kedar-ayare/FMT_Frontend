@@ -64,7 +64,7 @@ export default function BottomNav({ navOpt, handleTap }) {
                     handleTap("profile")
                 }}
             >
-                <Image source={{ uri: 'https://myfamtree.000webhostapp.com/appImages/kedar.jpg' }} style={[styles.navImg, styles.profileImg]} />
+                <Image source={{ uri: 'https://myfamtree.000webhostapp.com/kedar.jpg' }} style={[styles.navImg, styles.profileImg]} />
             </TouchableOpacity>
 
 

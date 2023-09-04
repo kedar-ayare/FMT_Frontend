@@ -14,7 +14,7 @@ export default function UserScreenButtons({ }) {
     const [isConnected, setConnected] = useState(false);
 
     const [followModal, setFollowModal] = useState(false);
-    const [connectModal, setConnectModal] = useState(true);
+    const [connectModal, setConnectModal] = useState(false);
     return (
         <View style={styles.main}>
 

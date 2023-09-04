@@ -1,6 +1,8 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image, Dimensions, ScrollView, TextInput } from 'react-native'
 import React from 'react'
 import { useState } from 'react';
+import { getServerAddress } from '../utilities/data';
+import axios from 'axios';
 
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 
@@ -15,6 +17,8 @@ export default function NewPost() {
     const [images, setImages] = useState([]);
     const [caption, setCaption] = useState("");
 
+
+    // Image picker function
     const pickImage = () => {
         launchImageLibrary(options, (value) => {
             if (value.assets !== undefined) {
@@ -24,6 +28,9 @@ export default function NewPost() {
         })
 
     };
+
+
+    // Options for the image picker
     const options = {
         title: 'Select Image',
         storageOptions: {
@@ -33,6 +40,8 @@ export default function NewPost() {
         selectionLimit: 10,
     };
 
+
+    // Function to display all selected images
     function renderImages() {
         var imageList = []
         if (images !== undefined && images.length > 0) {
@@ -45,6 +54,8 @@ export default function NewPost() {
         return imageList
     }
 
+
+    // Function that deselects an images when clicked on cross
     function deSelectImage(index) {
         const updatedImages = [...images];
         updatedImages.splice(index, 1);
@@ -53,20 +64,50 @@ export default function NewPost() {
     }
 
 
+    function post() {
+
+        console.log("Posting...")
+        const formdata = new FormData();
+        images.forEach((image, index) => {
+            formdata.append(
+                `image`, {
+                uri: image.uri,
+                type: image.type,
+                name: `image${index + 1}.jpg`,
+            });
+        });
+        console.log(formdata)
+        var url = getServerAddress() + "/api/posts/"
+
+        axios.post(url, formdata, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        }).then(response => {
+            console.log(response)
+        }).catch(error => {
+            console.error(error)
+        })
+    }
+
     return (
 
         <View style={styles.main}>
+
+            {/* Header with Post button */}
             <View style={styles.header}>
                 {/* <Text style={styles.headerText}>New Post</Text> */}
                 <TouchableOpacity style={styles.postButton}
-                    onPress={() => {
-                        console.log("Caption: ", caption)
-                    }}
+                    onPress={post}
                 >
                     <Text style={styles.postButtonText}>Post</Text>
                 </TouchableOpacity>
             </View>
+
+            {/* Body with caption box and images */}
             <ScrollView style={styles.content}>
+
+                {/* Caption Box */}
                 <TextInput
                     style={styles.inputField}
                     multiline
@@ -76,9 +117,14 @@ export default function NewPost() {
                     placeholder='Enter Caption/Text for your post'
                     placeholderTextColor="#666"
                 />
+
+                {/* Image Seelction Section */}
                 <View style={styles.imageSection}>
                     <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", justifyContent: "flex-start", }}>
+
                         <ImageWithCross1 pickImage={pickImage} />
+
+                        {/* Renders all selected images */}
                         {
                             renderImages()
                         }

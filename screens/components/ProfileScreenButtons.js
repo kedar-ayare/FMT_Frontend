@@ -1,16 +1,29 @@
 import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from 'react-native'
 import React from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 let sHeight = Dimensions.get('window').height;
 let sWidth = Dimensions.get('window').width;
-export default function ProfileScreenButtons() {
+export default function ProfileScreenButtons({ logout }) {
+
+
+
     return (
         <View style={styles.main}>
             <View style={styles.content}>
                 <View style={{ height: sHeight * 0.045, width: sWidth * 0.95, display: "flex", flexDirection: "row", justifyContent: "space-between", }}>
-                    <TouchableOpacity style={{ height: sHeight * 0.045, width: sWidth * 0.465, backgroundColor: "white", justifyContent: "center", alignItems: "center", borderRadius: sHeight * 0.004 }}>
+
+
+                    <TouchableOpacity
+                        style={{ height: sHeight * 0.045, width: sWidth * 0.465, backgroundColor: "white", justifyContent: "center", alignItems: "center", borderRadius: sHeight * 0.004 }}
+                        onPress={() => {
+                            logout()
+                        }}
+                    >
                         <Text style={styles.buttonText}>Edit Profile</Text>
                     </TouchableOpacity>
+
+
                     <TouchableOpacity style={{ height: sHeight * 0.045, width: sWidth * 0.465, backgroundColor: "white", justifyContent: "center", alignItems: "center", borderRadius: sHeight * 0.004 }}>
                         <Text style={styles.buttonText}>Legacy Profile</Text>
                     </TouchableOpacity>

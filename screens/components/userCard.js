@@ -5,19 +5,29 @@ let sHeight = Dimensions.get('window').height;
 let sWidth = Dimensions.get('window').width;
 
 
-export default function UserCard({ name, img, userTap }) {
+export default function UserCard({ userId, name, img, userTap, removeSearched }) {
 
     // console.log(typeof (userTap))
     return (
         <TouchableOpacity style={styles.cardContainer} onPress={() => {
             // console.log("Something")
-            userTap(name)
+            userTap([userId, name, img])
         }}>
 
             <Image source={{ uri: img }}
                 style={styles.profileImg}
             />
             <Text style={styles.username}>{name}</Text>
+            <TouchableOpacity
+                style={styles.crossBox}
+                onPress={() => {
+                    removeSearched(userId)
+                }}
+            >
+                <Image style={styles.cross}
+                    source={require("../../assets/cross.png")}
+                />
+            </TouchableOpacity>
         </TouchableOpacity>
 
     )
@@ -52,7 +62,19 @@ const styles = StyleSheet.create({
         color: "#084907",
         fontFamily: "RobotoSlab-Bold",
         fontSize: 18,
-        width: sWidth * 0.8 - sHeight * 0.09,
+        width: sWidth * 0.8 - sHeight * 0.09 - sHeight * 0.1,
         paddingLeft: sWidth * 0.05,
+    },
+    cross: {
+        height: sHeight * 0.02,
+        width: sHeight * 0.02
+    },
+    crossBox: {
+        height: sHeight * 0.1,
+        width: sHeight * 0.08,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "flex-end",
+        // backgroundColor: "blue"
     }
 })

@@ -7,7 +7,7 @@ import UserPosts from './userPosts';
 
 
 
-export default function ProfileScreen() {
+export default function ProfileScreen({ logout }) {
 
     const [refreshing, setRefreshing] = useState();
     function onRefresh() {
@@ -24,7 +24,7 @@ export default function ProfileScreen() {
             <UserScreenHeader />
 
             {/* Height 0.14 */}
-            <ProfileScreenButtons />
+            <ProfileScreenButtons logout={logout} />
 
             {/* <UserPosts /> */}
         </ScrollView>

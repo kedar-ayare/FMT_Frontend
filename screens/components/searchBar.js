@@ -1,21 +1,25 @@
-import { View, Text, Dimensions, StyleSheet, Image, TextInput } from 'react-native'
+import { View, Text, Dimensions, StyleSheet, Image, TextInput, TouchableOpacity } from 'react-native'
 import React from 'react'
 
 
 let sHeight = Dimensions.get('window').height;
 let sWidth = Dimensions.get('window').width;
 
-export default function SearchBar({ query, setQuery, handleInput }) {
+export default function SearchBar({ query, setQuery, handleInput, handleBackPress }) {
     return (
         <View style={styles.searchContainer}>
             <View style={styles.searchBox}>
-                <View style={styles.imgBox}>
+                <TouchableOpacity style={styles.imgBox}
+                    onPress={handleBackPress}
+                >
                     <Image
-                        source={{ uri: 'https://myfamtree.000webhostapp.com/appImages/search%20box%20icon.png' }} // Replace with your image URL
+                        source={(query === "") ? require("../../assets/search-grey.png")
+                            : require("../../assets/arrow-grey.png")}
+                        // source={require("../../assets/search-grey.png")} // Replace with your image URL
                         style={styles.image}
                     />
 
-                </View>
+                </TouchableOpacity>
                 <TextInput style={styles.searchField}
                     placeholder='Enter Username'
                     placeholderTextColor="#9C9A9A"
@@ -56,8 +60,8 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
     image: {
-        height: sHeight * 0.04,
-        width: sHeight * 0.04,
+        height: sHeight * 0.035,
+        width: sHeight * 0.035,
     },
     searchField: {
         height: sHeight * 0.08,

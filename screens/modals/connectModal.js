@@ -22,11 +22,11 @@ export default function ConnectModal({ setConnectModal }) {
         <BlurView>
             <View style={{ height: sHeight, width: sWidth, alignItems: "center", justifyContent: "center", }}>
                 <View style={styles.content}>
-                    <Select
+                    {/* <Select
                         label={<Text>Hello</Text>}
                     >
 
-                    </Select>
+                    </Select> */}
                 </View>
             </View>
         </BlurView>
