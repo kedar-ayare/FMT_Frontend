@@ -1,3 +1,6 @@
+// USER KA KHUD KA SCREEN. 
+// VISISTED UPON CLICKING THE RIGHT MOST BUTTON ON NAV BAR
+
 import { View, Text, RefreshControl, ScrollView } from 'react-native'
 import React, { useState } from 'react'
 

@@ -1,18 +1,18 @@
-import { StyleSheet, Text, View, Dimensions, ScrollView } from 'react-native'
+import { StyleSheet, View, ScrollView } from 'react-native'
 import React from 'react'
+import { useNavigation } from '@react-navigation/native';
 
 import Header from './components/header';
 import UserPosts from './userPosts';
 
-let sHeight = Dimensions.get('window').height;
-let sWidth = Dimensions.get('window').width;
-
-import { useNavigation } from '@react-navigation/native';
+import { sHeight, sWidth } from '../utilities/data';
 
 export default function Home() {
 
     const navigation = useNavigation();
 
+    // Function that opens the All Comments Screen whenever
+    // user taps on the "all comments" option of the post
     function allCommentTap(comments) {
         navigation.navigate('AllComments', { comments });
     }

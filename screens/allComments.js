@@ -1,8 +1,6 @@
-import { StyleSheet, Text, View, Dimensions, Image, ScrollView, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity } from 'react-native'
 import React from 'react'
-
-let sHeight = Dimensions.get('window').height;
-let sWidth = Dimensions.get('window').width;
+import { sHeight, sWidth } from '../utilities/data';
 
 import CommentCard from './components/commentCard';
 import { useNavigation } from '@react-navigation/native';
@@ -15,11 +13,13 @@ export default function AllComments({ route }) {
     const { comments } = route.params;
 
     const navigation = useNavigation();
+
+    // Runs when user closes the screen
     function crossTap() {
         navigation.dispatch(StackActions.pop());
     }
 
-
+    // USed to dispaly all comments available
     function renderComments() {
         var commentList = []
         for (var i = 0; i < comments.length; i++) {
@@ -29,6 +29,8 @@ export default function AllComments({ route }) {
         }
         return commentList
     }
+
+
     return (
         <View style={styles.main}>
 

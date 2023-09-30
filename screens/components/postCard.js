@@ -1,11 +1,9 @@
-import { Image, StyleSheet, Text, View, Dimensions, TouchableOpacity } from 'react-native'
+import { Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { useState } from 'react';
 
-// Adjust this value as per your requirement
+import { sHeight, sWidth } from '../../utilities/data';
 
-let sHeight = Dimensions.get('window').height;
-let sWidth = Dimensions.get('window').width;
 
 import CommentCard from './commentCardMini';
 
@@ -85,7 +83,8 @@ export default function PostCard({ postData, allCommentTap }) {
 }
 
 
-
+// Component that resizes the images according to the defined height
+// Check "MAX_IMAGE_HEIGHT" variable on top
 const ConditionalImage = ({ source }) => {
     return (
         <View>
@@ -101,6 +100,10 @@ const ConditionalImage = ({ source }) => {
     );
 };
 
+
+// Post header component that has
+// user's profile picture and username
+// like in Instagram
 const PostHeader = ({ profileImg, username }) => {
     return (
         <View style={styles.postHeaderBox}>
@@ -110,7 +113,7 @@ const PostHeader = ({ profileImg, username }) => {
     );
 };
 
-
+// Called when post just has caption/text
 const TextPost = ({ postText }) => {
     return (
         <View style={styles.textPostBox}>
@@ -119,6 +122,9 @@ const TextPost = ({ postText }) => {
     );
 };
 
+
+// Post Buttons - Like Button, Comment Button 
+// and shows who all liked the post
 const PostActions = ({ liked }) => {
 
     const [like, setLiked] = useState(liked);

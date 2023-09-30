@@ -1,8 +1,6 @@
-import { View, Text, Dimensions, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 import React from 'react'
-
-let sHeight = Dimensions.get('window').height;
-let sWidth = Dimensions.get('window').width;
+import { sHeight, sWidth } from '../../utilities/data';
 
 export default function Header() {
     return (

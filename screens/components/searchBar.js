@@ -1,9 +1,7 @@
-import { View, Text, Dimensions, StyleSheet, Image, TextInput, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, Image, TextInput, TouchableOpacity } from 'react-native'
 import React from 'react'
+import { sHeight, sWidth } from '../../utilities/data';
 
-
-let sHeight = Dimensions.get('window').height;
-let sWidth = Dimensions.get('window').width;
 
 export default function SearchBar({ query, setQuery, handleInput, handleBackPress }) {
     return (

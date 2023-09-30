@@ -1,12 +1,6 @@
-import { View, Text, StyleSheet, Dimensions, Image, TouchableOpacity, useNavigation } from 'react-native'
+import { View, Text, StyleSheet, Image, TouchableOpacity, useNavigation } from 'react-native'
 import React from 'react'
-
-import { useState, useEffect } from 'react';
-
-
-
-let sHeight = Dimensions.get('window').height;
-let sWidth = Dimensions.get('window').width;
+import { sHeight, sWidth } from '../../utilities/data';
 
 export default function BottomNav({ navOpt, handleTap }) {
 

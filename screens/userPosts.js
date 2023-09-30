@@ -1,19 +1,15 @@
-import { StyleSheet, Text, View, Dimensions, Image } from 'react-native'
+import { StyleSheet, Text, View, Image } from 'react-native'
 import React from 'react'
+import { sHeight, sWidth } from '../utilities/data';
 
 import PostCard from './components/postCard';
-
-
-let sHeight = Dimensions.get('window').height;
-let sWidth = Dimensions.get('window').width;
 
 
 
 export default function UserPosts({ allCommentTap }) {
 
 
-
-
+    // Static Post Data
     const posts = [
         {
             "userImg": "https://myfamtree.000webhostapp.com/kedar.jpg",
@@ -49,7 +45,7 @@ export default function UserPosts({ allCommentTap }) {
             "postImg": "https://i.pinimg.com/originals/83/44/b6/8344b6cbd2e56b1cf5fdcb42ca68aa5d.jpg",
             "caption": "Kid meets his idols",
             "likes": 360,
-            liked: false,
+            "liked": false,
             "comments": [
             ]
         },
@@ -73,6 +69,7 @@ export default function UserPosts({ allCommentTap }) {
     ]
 
 
+    // Funcion that renders posts based on the "posts" variable
 
     function renderPosts() {
 

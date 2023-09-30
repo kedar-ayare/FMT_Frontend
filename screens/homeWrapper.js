@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Dimensions } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
 
@@ -7,9 +7,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Home from './home';
 import AllComments from './allComments';
 
-
-let sHeight = Dimensions.get('window').height;
-let sWidth = Dimensions.get('window').width;
+import { sHeight, sWidth, wrapperStyleSheet } from '../utilities/data';
 
 const Stack = createStackNavigator();
 
@@ -29,9 +27,4 @@ const HomeWrapper = () => {
 
 export default HomeWrapper
 
-const styles = StyleSheet.create({
-    main: {
-        width: sWidth,
-        height: sHeight * 0.92,
-    }
-})
+const styles = wrapperStyleSheet;

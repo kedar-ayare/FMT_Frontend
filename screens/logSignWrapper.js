@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Dimensions } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
 import { NavigationContainer } from '@react-navigation/native';
@@ -9,11 +9,11 @@ import LogIn from './logIn';
 import Register_1 from './register_1';
 import Register_2 from './register_2';
 import OtpScreen from './otpScreen';
+import { sHeight, sWidth } from '../utilities/data';
 
 const Stack = createStackNavigator();
 
-let sHeight = Dimensions.get('window').height;
-let sWidth = Dimensions.get('window').width;
+
 
 function withSetUserId(Component, setUserId) {
     return function WrappedComponent(props) {

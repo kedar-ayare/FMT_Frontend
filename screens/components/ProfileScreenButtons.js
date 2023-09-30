@@ -1,9 +1,8 @@
-import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import React from 'react'
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { sHeight, sWidth } from '../../utilities/data';
 
-let sHeight = Dimensions.get('window').height;
-let sWidth = Dimensions.get('window').width;
+
 export default function ProfileScreenButtons({ logout }) {
 
 

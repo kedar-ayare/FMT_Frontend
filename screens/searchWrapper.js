@@ -1,5 +1,6 @@
-import { StyleSheet, Text, View, Dimensions } from 'react-native'
-import React from 'react'
+import { StyleSheet, View } from 'react-native'
+import React from 'react';
+import { sHeight, sWidth, wrapperStyleSheet } from '../utilities/data';
 
 
 import { NavigationContainer } from '@react-navigation/native';
@@ -8,8 +9,6 @@ import Search from './search';
 import UserScreen from './userScreen';
 
 
-let sHeight = Dimensions.get('window').height;
-let sWidth = Dimensions.get('window').width;
 
 const Stack = createStackNavigator();
 
@@ -29,9 +28,4 @@ const SearchWrapper = () => {
 
 export default SearchWrapper
 
-const styles = StyleSheet.create({
-    main: {
-        width: sWidth,
-        height: sHeight * 0.92,
-    }
-})
+const styles = wrapperStyleSheet;

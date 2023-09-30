@@ -1,16 +1,11 @@
-import { View, Text, StyleSheet, Dimensions, Image, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
-
-let sHeight = Dimensions.get('window').height;
-let sWidth = Dimensions.get('window').width;
-
+import { sHeight, sWidth } from '../../utilities/data';
 
 export default function UserCard({ userId, name, img, userTap, removeSearched }) {
 
-    // console.log(typeof (userTap))
     return (
         <TouchableOpacity style={styles.cardContainer} onPress={() => {
-            // console.log("Something")
             userTap([userId, name, img])
         }}>
 

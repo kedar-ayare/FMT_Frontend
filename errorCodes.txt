@@ -1,0 +1,1 @@
+Code-01 - (AppWrapper) User token is found in local storage and is validated successfully

@@ -1,9 +1,9 @@
 import { ImageBackground, StyleSheet, Text, View, Dimensions, Image, TextInput, Touchable, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { StackActions, useNavigation } from '@react-navigation/native';
+import { sHeight, sWidth } from '../utilities/data';
 
-let sHeight = Dimensions.get('window').height;
-let sWidth = Dimensions.get('window').width;
+
 export default function Register_1() {
 
     const navigation = useNavigation()

@@ -1,8 +1,6 @@
-import { View, Text, Image, StyleSheet, Dimensions } from 'react-native'
+import { View, Text, Image, StyleSheet } from 'react-native'
 import React from 'react'
-
-let sHeight = Dimensions.get('window').height;
-let sWidth = Dimensions.get('window').width;
+import { sHeight, sWidth } from '../../utilities/data'
 
 export default function ProfileScreenHeader() {
     return (

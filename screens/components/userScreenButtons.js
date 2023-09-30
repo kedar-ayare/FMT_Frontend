@@ -1,9 +1,7 @@
-import { StyleSheet, Text, View, Dimensions, TouchableOpacity, Modal } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, Modal } from 'react-native'
 import { React, useState } from 'react'
+import { sHeight, sWidth } from '../../utilities/data';
 
-
-let sHeight = Dimensions.get('window').height;
-let sWidth = Dimensions.get('window').width;
 
 import FollowModal from '../modals/followModal';
 import ConnectModal from '../modals/connectModal';

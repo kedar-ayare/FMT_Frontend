@@ -1,14 +1,12 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image, Dimensions, ScrollView, TextInput } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView, TextInput } from 'react-native'
 import React from 'react'
 import { useState } from 'react';
 import { getServerAddress } from '../utilities/data';
 import axios from 'axios';
+import { sHeight, sWidth } from '../utilities/data';
 
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 
-
-let sHeight = Dimensions.get('window').height;
-let sWidth = Dimensions.get('window').width;
 
 
 
@@ -291,19 +289,19 @@ const styles = StyleSheet.create({
 
 
 
- // ImagePicker.showImagePicker(options, (response) => {
-        //     if (response.didCancel) {
-        //         console.log('User cancelled image picker');
-        //     } else if (response.error) {
-        //         console.log('Image picker error:', response.error);
-        //     } else if (response.customButton) {
-        //         console.log('User tapped custom button:', response.customButton);
-        //     } else {
-        //         // The selected image is available in response.uri
-        //         const selectedImage = response.uri;
-        //         // Process the selected image as needed
-        //     }
-        // });
+// ImagePicker.showImagePicker(options, (response) => {
+//     if (response.didCancel) {
+//         console.log('User cancelled image picker');
+//     } else if (response.error) {
+//         console.log('Image picker error:', response.error);
+//     } else if (response.customButton) {
+//         console.log('User tapped custom button:', response.customButton);
+//     } else {
+//         // The selected image is available in response.uri
+//         const selectedImage = response.uri;
+//         // Process the selected image as needed
+//     }
+// });
 
 
 
@@ -323,15 +321,15 @@ const styles = StyleSheet.create({
 
 
 // <View>
-        //     <Button title="Pick Image" onPress={pickImage} />
-        //     <TouchableOpacity>
-        //         <Text style={{ color: "black" }}>lfdjbkdfjbkdjfbnkdjfn</Text>
-        //     </TouchableOpacity>
-        //     <ScrollView>
-        //         {
-        //             renderImages()
-        //         }
-        //     </ScrollView>
+//     <Button title="Pick Image" onPress={pickImage} />
+//     <TouchableOpacity>
+//         <Text style={{ color: "black" }}>lfdjbkdfjbkdjfbnkdjfn</Text>
+//     </TouchableOpacity>
+//     <ScrollView>
+//         {
+//             renderImages()
+//         }
+//     </ScrollView>
 
 
-        // </View>
+// </View>

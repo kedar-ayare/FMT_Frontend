@@ -1,8 +1,7 @@
 import { StyleSheet, Text, View, ActivityIndicator, Dimensions } from 'react-native'
 import React from 'react'
+import { sHeight, sWidth } from '../utilities/data';
 
-let sHeight = Dimensions.get('window').height;
-let sWidth = Dimensions.get('window').width;
 
 export default function LoadingScreen() {
     return (

@@ -1,11 +1,7 @@
 import { StyleSheet, Text, View, Dimensions, Image, ScrollView } from 'react-native'
 import React from 'react'
+import { sHeight, sWidth } from '../utilities/data'
 
-
-
-
-let sHeight = Dimensions.get('window').height;
-let sWidth = Dimensions.get('window').width;
 export default function Notifications() {
 
     const notifications = [
