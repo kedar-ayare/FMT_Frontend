@@ -64,7 +64,10 @@ export default function Search() {
                 AsyncStorage.setItem("searched", JSON.stringify(prevSearched))
 
             }
-            navigation.navigate('UserDetail', { userDets });
+            navigation.navigate('UserScreen', { userDets });
+        } else {
+            console.log("Same User")
+            navigation.navigate('ProfileScreen')
         }
     }
 

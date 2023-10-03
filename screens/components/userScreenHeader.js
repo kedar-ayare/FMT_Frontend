@@ -2,35 +2,35 @@ import { View, Text, Image, StyleSheet } from 'react-native'
 import React from 'react'
 import { sHeight, sWidth } from '../../utilities/data'
 
-export default function ProfileScreenHeader() {
+export default function ProfileScreenHeader({ userData }) {
     return (
         <View style={styles.main}>
 
             <View style={{ height: sHeight * 0.13, display: "flex", flexDirection: "row", width: sWidth, alignItems: "flex-end" }}>
 
                 <View style={styles.imgBox}>
-                    <Image source={{ uri: 'https://myfamtree.000webhostapp.com/kedar.jpg' }}
+                    <Image source={{ uri: userData.profileURL }}
                         style={styles.profileImg}
                     />
 
                 </View>
 
                 <View style={styles.detailBox}>
-                    <Text style={styles.value}>4</Text>
+                    <Text style={styles.value}>{userData.posts.length}</Text>
                     <Text style={styles.item}>Posts</Text>
                 </View>
 
                 <View style={styles.detailBox}>
-                    <Text style={styles.value}>4</Text>
-                    <Text style={styles.item}>Posts</Text>
+                    <Text style={styles.value}>{userData.followers.length}</Text>
+                    <Text style={styles.item}>Followers</Text>
                 </View>
 
                 <View style={styles.detailBox}>
-                    <Text style={styles.value}>4</Text>
-                    <Text style={styles.item}>Posts</Text>
+                    <Text style={styles.value}>{userData.following.length}</Text>
+                    <Text style={styles.item}>Following</Text>
                 </View>
             </View>
-            <Text style={styles.username}>Kedar Ayare</Text>
+            <Text style={styles.username}>{userData.fname} {userData.lname}</Text>
 
 
         </View>

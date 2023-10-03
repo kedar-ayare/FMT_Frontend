@@ -1,27 +1,52 @@
-import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import { React, useEffect, useState } from 'react';
 import { BlurView } from '@react-native-community/blur';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getServerAddress, sHeight, sWidth, tokenKeyName } from '../../utilities/data';
+import axios from 'axios';
+import { encrypt } from '../../utilities/encrypt';
 
-let sHeight = Dimensions.get('window').height;
-let sWidth = Dimensions.get('window').width;
 
-export default function FollowModal({ setFollowModal }) {
+
+export default function FollowModal({ setFollowModal, isFollowed, setFollowed, userId }) {
     var followStatus = true
     var name = "Kedar Ayare"
 
+    console.log("Broooo", userId)
 
+    async function unfollow() {
+        const url = getServerAddress() + "/api/follow/remove/" + userId
+        console.log(url)
+        const token = await AsyncStorage.getItem(tokenKeyName())
+        const headers = {
+            token: await encrypt(token)
+        }
+        axios.post(url, {}, { headers }).then((response) => {
+            console.log(response.data)
+            if (response.data.msg == "Success") {
+
+            }
+        }).catch((err) => {
+            console.log(err)
+        })
+
+    }
     return (
         <BlurView>
             <View style={{ height: sHeight, width: sWidth, alignItems: "center", justifyContent: "center" }}>
                 <View style={styles.content}>
                     <Text style={styles.modalText}>Do you want to
-                        {(followStatus) ? " unfollow " : " follow "} {"\n"}
+                        {(isFollowed) ? " unfollow " : " follow "} {"\n"}
                         <Text style={styles.username}>{name}</Text>?
                     </Text>
                     <View style={styles.buttonBox}>
                         <TouchableOpacity
                             style={[styles.button, styles.confirm]}
                             onPress={() => {
+                                if (isFollowed) {
+                                    unfollow()
+                                }
+                                setFollowed(false)
                                 setFollowModal(false)
                             }}
                         >
@@ -41,12 +66,6 @@ export default function FollowModal({ setFollowModal }) {
                 </View>
             </View>
         </BlurView>
-
-
-
-
-
-
     )
 }
 

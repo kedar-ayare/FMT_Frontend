@@ -65,7 +65,7 @@ export default function AppWrapper() {
         var value;
         try {
             value = await AsyncStorage.getItem(tokenKeyName())
-            // console.log("value: ", encrypt(value))
+            console.log("value: ", encrypt(value))
         } catch (e) {
             console.log(e)
         }

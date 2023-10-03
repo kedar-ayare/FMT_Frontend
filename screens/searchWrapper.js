@@ -7,6 +7,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Search from './search';
 import UserScreen from './userScreen';
+import ProfileScreen from './profileScreen';
 
 
 
@@ -18,7 +19,8 @@ const SearchWrapper = () => {
             <NavigationContainer>
                 <Stack.Navigator>
                     <Stack.Screen name="UserList" component={Search} options={{ headerShown: false }} />
-                    <Stack.Screen name="UserDetail" component={UserScreen} options={{ headerShown: false }} />
+                    <Stack.Screen name="UserScreen" component={UserScreen} options={{ headerShown: false }} />
+                    <Stack.Screen name="ProfileScreen" component={ProfileScreen} options={{ headerShown: false }} />
                 </Stack.Navigator>
             </NavigationContainer>
         </View>

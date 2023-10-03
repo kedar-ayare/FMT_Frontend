@@ -15,4 +15,4 @@ import MainWrapper from './screens/mainWrapper';
 import LoadingNoNet from './screens/loadingNoNet';
 
 
-AppRegistry.registerComponent(appName, () => LoadingNoNet);
+AppRegistry.registerComponent(appName, () => AppWrapper);

@@ -1,18 +1,26 @@
 import { StyleSheet, Text, View, TouchableOpacity, Modal } from 'react-native'
-import { React, useState } from 'react'
-import { sHeight, sWidth } from '../../utilities/data';
+import { React, useEffect, useState } from 'react'
+import { sHeight, sWidth, tokenKeyName } from '../../utilities/data';
 
 
 import FollowModal from '../modals/followModal';
 import ConnectModal from '../modals/connectModal';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-export default function UserScreenButtons({ }) {
-    const [isFollowed, setFollowed] = useState(false);
-    const [isConnected, setConnected] = useState(false);
+export default function UserScreenButtons({
+    isFollowed,
+    isConnected,
+    setFollowed,
+    setConnected,
+    userId
+}) {
+
+    console.log("bro previous", isFollowed)
 
     const [followModal, setFollowModal] = useState(false);
     const [connectModal, setConnectModal] = useState(false);
+
     return (
         <View style={styles.main}>
 
@@ -20,7 +28,6 @@ export default function UserScreenButtons({ }) {
             <TouchableOpacity
                 onPress={() => {
                     setFollowModal(!followModal)
-                    setFollowed(!isFollowed)
                 }}
                 style={(isFollowed) ? styles.buttonTrue : styles.buttonFalse}
             >
@@ -44,7 +51,13 @@ export default function UserScreenButtons({ }) {
             <Modal
                 visible={followModal}
             >
-                <FollowModal setFollowModal={setFollowModal} />
+                <FollowModal
+                    setFollowModal={setFollowModal}
+                    isFollowed={isFollowed}
+                    setFollowed={setFollowed}
+                    userId={userId}
+
+                />
             </Modal>
 
             <Modal

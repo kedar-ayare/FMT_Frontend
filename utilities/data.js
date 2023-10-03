@@ -1,7 +1,7 @@
-import { Dimensions } from 'react-native'
+import { Dimensions, StyleSheet } from 'react-native'
 
 
-var serverLink = "https://1dde-103-183-55-190.ngrok-free.app"
+var serverLink = "https://0368-45-118-104-132.ngrok-free.app"
 
 var atlasUserPAssword = "Q4mOG6nNWWwyGsVd"
 export function getServerAddress() {
