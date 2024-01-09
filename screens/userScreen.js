@@ -18,16 +18,17 @@ import { encrypt } from '../utilities/encrypt';
 
 export default function UserScreen({ route }) {
 
+
     const { userDets } = route.params;
     const [refreshing, setRefreshing] = useState();
     const [loading, setLoading] = useState(true);
     const [userData, setUserData] = useState(undefined)
 
-
     const [isFollowed, setFollowed] = useState(false);
     const [isConnected, setConnected] = useState(false);
 
 
+    console.log("here broooo", isFollowed)
     useEffect(() => {
         fetchUserDetails()
     }, [])
@@ -37,27 +38,55 @@ export default function UserScreen({ route }) {
     }, [userData])
 
 
-    async function initialRun() {
-        if (userData != undefined) {
-            const userId = await AsyncStorage.getItem("userId");
-            if (userData.followers.indexOf(userId) != -1) {
-                setFollowed(true)
+    function checkIfRequested(userId) {
+        for (let i = 0; i < userData.followReqs.length; i++) {
+            if (userData.followReqs[i].senderId == userId) {
+                return true
             }
-            if (
-                userData.parents.indexOf(userId) != -1 ||
-                userData.siblings.indexOf(userId) != -1 ||
-                userData.children.indexOf(userId) != -1
-            ) {
-                setConnected(true)
-            }
+        }
+        return false
+
+    }
+    function checkFollowing(userId) {
+        if (userData.followers.indexOf(userId) != -1) {
+            setFollowed("Following")
+        } else if (checkIfRequested(userId)) {
+            setFollowed("Requested")
+        } else {
+            setFollowed("Follow")
         }
 
     }
 
-
-    function onRefresh() {
-        console.log("Refreshed")
+    function checkConnection(userId) {
+        if (
+            userData.parents.indexOf(userId) != -1 ||
+            userData.siblings.indexOf(userId) != -1 ||
+            userData.children.indexOf(userId) != -1
+        ) {
+            setConnected(true)
+        } else {
+            setConnected(false)
+        }
+    }
+    async function initialRun() {
+        if (userData != undefined) {
+            const userId = await AsyncStorage.getItem("userId");
+            checkFollowing(userId)
+            checkConnection()
+        }
         setRefreshing(false)
+    }
+
+    function refetch() {
+        console.log("Refetching")
+        setTimeout(() => {
+            fetchUserDetails()
+        }, 1000)
+    }
+
+    async function onRefresh() {
+        fetchUserDetails()
     }
 
     function renderDisplay() {
@@ -66,7 +95,7 @@ export default function UserScreen({ route }) {
         } else {
             return <ScrollView
                 refreshControl={
-                    <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+                    <RefreshControl refreshing={refreshing} onRefresh={() => onRefresh()} />
                 }
             >
                 <NavHeader />
@@ -80,9 +109,9 @@ export default function UserScreen({ route }) {
                 <UserScreenButtons
                     isFollowed={isFollowed}
                     isConnected={isConnected}
-                    setFollowed={setFollowed}
                     setConnected={setConnected}
-                    userId={userData._id}
+                    userData={userData}
+                    refetch={refetch}
 
                 />
             </ScrollView>
@@ -90,6 +119,7 @@ export default function UserScreen({ route }) {
     }
 
     async function fetchUserDetails() {
+        console.log("Fetching User Details....")
         const url = getServerAddress() + "/api/users/" + userDets[0]
         const token = await AsyncStorage.getItem(tokenKeyName())
         const headers = {
@@ -99,7 +129,6 @@ export default function UserScreen({ route }) {
             console.log(response.data)
             setUserData(response.data)
             setLoading(false)
-            initialRun()
         }).catch((error) => {
             console.log(error)
         })

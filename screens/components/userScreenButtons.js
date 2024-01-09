@@ -5,19 +5,15 @@ import { sHeight, sWidth, tokenKeyName } from '../../utilities/data';
 
 import FollowModal from '../modals/followModal';
 import ConnectModal from '../modals/connectModal';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export default function UserScreenButtons({
     isFollowed,
     isConnected,
-    setFollowed,
     setConnected,
-    userId
+    userData,
+    refetch
 }) {
-
-    console.log("bro previous", isFollowed)
-
     const [followModal, setFollowModal] = useState(false);
     const [connectModal, setConnectModal] = useState(false);
 
@@ -29,17 +25,22 @@ export default function UserScreenButtons({
                 onPress={() => {
                     setFollowModal(!followModal)
                 }}
-                style={(isFollowed) ? styles.buttonTrue : styles.buttonFalse}
+
+                // style={(isFollowed) ? styles.buttonTrue : styles.buttonFalse}
+                style={
+                    (isFollowed == "Follow") ? styles.buttonFalse : styles.buttonTrue
+                }
             >
-                <Text style={(isFollowed) ? styles.btnTextTrue : styles.btnTextFalse}>
-                    {(isFollowed) ? "UnFollow" : "Follow"}
+                <Text style={(isFollowed == "Follow") ? styles.btnTextFalse : styles.btnTextTrue}>
+                    {isFollowed}
                 </Text>
             </TouchableOpacity>
 
             {/* Connect Button */}
             <TouchableOpacity
                 onPress={() => {
-                    setConnected(!isConnected)
+                    // setConnected(!isConnected)
+                    setConnectModal(!connectModal)
                 }}
                 style={(isConnected) ? styles.buttonTrue : styles.buttonFalse}
             >
@@ -54,8 +55,8 @@ export default function UserScreenButtons({
                 <FollowModal
                     setFollowModal={setFollowModal}
                     isFollowed={isFollowed}
-                    setFollowed={setFollowed}
-                    userId={userId}
+                    userData={userData}
+                    refetch={refetch}
 
                 />
             </Modal>
@@ -63,7 +64,11 @@ export default function UserScreenButtons({
             <Modal
                 visible={connectModal}
             >
-                <ConnectModal setConnectModal={setConnectModal} />
+                <ConnectModal
+                    setConnectModal={setConnectModal}
+                    isConnected={isConnected}
+                    userData={userData}
+                />
             </Modal>
 
 
