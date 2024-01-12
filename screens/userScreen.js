@@ -28,7 +28,7 @@ export default function UserScreen({ route }) {
     const [isConnected, setConnected] = useState(false);
 
 
-    console.log("here broooo", isFollowed)
+    console.log("Idhar bro", isConnected)
     useEffect(() => {
         fetchUserDetails()
     }, [])
@@ -38,9 +38,9 @@ export default function UserScreen({ route }) {
     }, [userData])
 
 
-    function checkIfRequested(userId) {
-        for (let i = 0; i < userData.followReqs.length; i++) {
-            if (userData.followReqs[i].senderId == userId) {
+    function checkIfRequested(userId, kind) {
+        for (let i = 0; i < userData[kind].length; i++) {
+            if (userData[kind][i].senderId == userId) {
                 return true
             }
         }
@@ -50,7 +50,7 @@ export default function UserScreen({ route }) {
     function checkFollowing(userId) {
         if (userData.followers.indexOf(userId) != -1) {
             setFollowed("Following")
-        } else if (checkIfRequested(userId)) {
+        } else if (checkIfRequested(userId, "followReqs")) {
             setFollowed("Requested")
         } else {
             setFollowed("Follow")
@@ -64,16 +64,18 @@ export default function UserScreen({ route }) {
             userData.siblings.indexOf(userId) != -1 ||
             userData.children.indexOf(userId) != -1
         ) {
-            setConnected(true)
+            setConnected("Connected")
+        } else if (checkIfRequested(userId, "connectReqs")) {
+            setConnected("Requested")
         } else {
-            setConnected(false)
+            setConnected("Connect")
         }
     }
     async function initialRun() {
         if (userData != undefined) {
             const userId = await AsyncStorage.getItem("userId");
             checkFollowing(userId)
-            checkConnection()
+            checkConnection(userId)
         }
         setRefreshing(false)
     }

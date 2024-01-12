@@ -42,10 +42,10 @@ export default function UserScreenButtons({
                     // setConnected(!isConnected)
                     setConnectModal(!connectModal)
                 }}
-                style={(isConnected) ? styles.buttonTrue : styles.buttonFalse}
+                style={(isConnected == "Connect") ? styles.buttonFalse : styles.buttonTrue}
             >
-                <Text style={(isConnected) ? styles.btnTextTrue : styles.btnTextFalse}>
-                    {(isConnected) ? "Disconnect" : "Connect"}
+                <Text style={(isConnected == "Connect") ? styles.btnTextFalse : styles.btnTextTrue}>
+                    {isConnected}
                 </Text>
             </TouchableOpacity>
 
