@@ -5,6 +5,7 @@ import { sHeight, sWidth, tokenKeyName } from '../../utilities/data';
 
 import FollowModal from '../modals/followModal';
 import ConnectModal from '../modals/connectModal';
+import ErrBanner from '../modals/errBanner';
 
 
 export default function UserScreenButtons({
@@ -12,10 +13,12 @@ export default function UserScreenButtons({
     isConnected,
     setConnected,
     userData,
-    refetch
+    refetch,
+    requestId
 }) {
     const [followModal, setFollowModal] = useState(false);
     const [connectModal, setConnectModal] = useState(false);
+    const [banner, setBanner] = useState(null);
 
     return (
         <View style={styles.main}>
@@ -57,7 +60,8 @@ export default function UserScreenButtons({
                     isFollowed={isFollowed}
                     userData={userData}
                     refetch={refetch}
-
+                    requestId={requestId}
+                    setBanner={setBanner}
                 />
             </Modal>
 
@@ -71,7 +75,7 @@ export default function UserScreenButtons({
                 />
             </Modal>
 
-
+            {banner && <ErrBanner message={banner.message} type={banner.type} />}
         </View>
     )
 }

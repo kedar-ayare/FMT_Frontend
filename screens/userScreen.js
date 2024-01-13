@@ -26,9 +26,8 @@ export default function UserScreen({ route }) {
 
     const [isFollowed, setFollowed] = useState(false);
     const [isConnected, setConnected] = useState(false);
+    const [requestId, setRequestId] = useState(undefined);
 
-
-    console.log("Idhar bro", isConnected)
     useEffect(() => {
         fetchUserDetails()
     }, [])
@@ -41,6 +40,7 @@ export default function UserScreen({ route }) {
     function checkIfRequested(userId, kind) {
         for (let i = 0; i < userData[kind].length; i++) {
             if (userData[kind][i].senderId == userId) {
+                setRequestId(userData[kind][i]._id)
                 return true
             }
         }
@@ -114,6 +114,7 @@ export default function UserScreen({ route }) {
                     setConnected={setConnected}
                     userData={userData}
                     refetch={refetch}
+                    requestId={requestId}
 
                 />
             </ScrollView>

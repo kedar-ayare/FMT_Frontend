@@ -4,31 +4,83 @@ import { BlurView } from '@react-native-community/blur';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getServerAddress, sHeight, sWidth, tokenKeyName } from '../../utilities/data';
 import axios from 'axios';
-import { encrypt } from '../../utilities/encrypt';
+import { decrypt, encrypt } from '../../utilities/encrypt';
 
 
 
-export default function FollowModal({ setFollowModal, isFollowed, setFollowed, userId }) {
+
+
+export default function FollowModal({ setFollowModal, isFollowed, setFollowed, userData, refetch, requestId, setBanner }) {
     var followStatus = true
     var name = "Kedar Ayare"
 
-    console.log("Broooo", userId)
+    // console.log("Broooo",isFollowed)
 
-    async function unfollow() {
-        const url = getServerAddress() + "/api/follow/remove/" + userId
-        console.log(url)
+    async function follow() {
+
+        var reqType = "request"
+        if (userData.accountStat != "Private") {
+            reqType = "follow"
+        }
+
+        const url = getServerAddress() + "/api/follow/" + reqType + "/" + userData._id
+
         const token = await AsyncStorage.getItem(tokenKeyName())
         const headers = {
             token: await encrypt(token)
         }
+
         axios.post(url, {}, { headers }).then((response) => {
             console.log(response.data)
-            if (response.data.msg == "Success") {
-
+            if (response.data.err == "OK") {
+                setBanner({ message: 'Task successful!', type: 'success' });
+            } else {
+                setBanner({ message: 'Task failed!', type: 'error' });
             }
         }).catch((err) => {
             console.log(err)
         })
+
+        setTimeout(() => {
+            setBanner(null);
+        }, 3000);
+
+
+    }
+
+    async function unfollow() {
+        if (isFollowed == "Requested") {
+            const url = getServerAddress() + "/api/follow/decline/" + requestId
+            console.log(url)
+            const token = await AsyncStorage.getItem(tokenKeyName())
+            const headers = {
+                token: await encrypt(token)
+            }
+            await axios.post(url, {}, { headers }).then((response) => {
+                console.log(response.data)
+                if (response.data.msg == "Success") {
+
+                }
+            }).catch((err) => {
+                console.log(err)
+            })
+        } else {
+            const url = getServerAddress() + "/api/follow/unFollow/" + userData._id
+            console.log(url)
+            const token = await AsyncStorage.getItem(tokenKeyName())
+            const headers = {
+                token: await encrypt(token)
+            }
+            await axios.post(url, {}, { headers }).then((response) => {
+                console.log(response.data)
+                if (response.data.msg == "Success") {
+
+                }
+            }).catch((err) => {
+                console.log(err)
+            })
+        }
+
 
     }
     return (
@@ -36,23 +88,28 @@ export default function FollowModal({ setFollowModal, isFollowed, setFollowed, u
             <View style={{ height: sHeight, width: sWidth, alignItems: "center", justifyContent: "center" }}>
                 <View style={styles.content}>
                     <Text style={styles.modalText}>Do you want to
-                        {(isFollowed) ? " unfollow " : " follow "} {"\n"}
-                        <Text style={styles.username}>{name}</Text>?
+                        {(isFollowed == "Follow") ? " follow " : " unfollow "} {"\n"}
+                        <Text style={styles.username}>{userData.fname} {userData.lname}</Text>?
                     </Text>
                     <View style={styles.buttonBox}>
                         <TouchableOpacity
                             style={[styles.button, styles.confirm]}
-                            onPress={() => {
-                                if (isFollowed) {
+                            onPress={async () => {
+                                if (isFollowed != "Follow") {
                                     unfollow()
+                                    refetch()
                                 }
-                                setFollowed(false)
-                                setFollowModal(false)
+                                else {
+                                    follow()
+                                    refetch()
+                                }
+                                await setFollowModal(false)
+
                             }}
                         >
                             <Text
                                 style={styles.buttonText}>
-                                {(followStatus) ? " Unfollow " : " Follow "}
+                                {(isFollowed == "Follow") ? " Follow " : " Unfollow "}
                             </Text>
                         </TouchableOpacity>
                         <TouchableOpacity
