@@ -14,11 +14,11 @@ export default function UserScreenButtons({
     setConnected,
     userData,
     refetch,
-    requestId
+    requestId,
 }) {
     const [followModal, setFollowModal] = useState(false);
     const [connectModal, setConnectModal] = useState(false);
-    const [banner, setBanner] = useState(null);
+    // const [banner, setBanner] = useState(null);
 
     return (
         <View style={styles.main}>
@@ -61,7 +61,7 @@ export default function UserScreenButtons({
                     userData={userData}
                     refetch={refetch}
                     requestId={requestId}
-                    setBanner={setBanner}
+                // setBanner={setBanner}
                 />
             </Modal>
 
@@ -72,10 +72,11 @@ export default function UserScreenButtons({
                     setConnectModal={setConnectModal}
                     isConnected={isConnected}
                     userData={userData}
+                    refetch={refetch}
                 />
             </Modal>
 
-            {banner && <ErrBanner message={banner.message} type={banner.type} />}
+            {/* {banner && <ErrBanner message={banner.message} type={banner.type} />} */}
         </View>
     )
 }
