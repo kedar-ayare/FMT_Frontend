@@ -10,11 +10,15 @@ import { decrypt, encrypt } from '../../utilities/encrypt';
 
 
 
-export default function FollowModal({ setFollowModal, isFollowed, setFollowed, userData, refetch, requestId, setBanner }) {
-    var followStatus = true
-    var name = "Kedar Ayare"
+export default function FollowModal({
+    setFollowModal,
+    isFollowed,
+    setFollowed,
+    userData,
+    refetch,
+    setBanner,
+}) {
 
-    // console.log("Broooo",isFollowed)
 
     async function follow() {
 
@@ -33,53 +37,28 @@ export default function FollowModal({ setFollowModal, isFollowed, setFollowed, u
         axios.post(url, {}, { headers }).then((response) => {
             console.log(response.data)
             if (response.data.err == "OK") {
-                setBanner({ message: 'Task successful!', type: 'success' });
-            } else {
-                setBanner({ message: 'Task failed!', type: 'error' });
+            }
+        }).catch((err) => {
+            console.log(err)
+        })
+    }
+
+    async function unfollow() {
+        const url = getServerAddress() + "/api/follow/unFollow/" + userData._id
+        console.log(url)
+        const token = await AsyncStorage.getItem(tokenKeyName())
+        const headers = {
+            token: await encrypt(token)
+        }
+        await axios.post(url, {}, { headers }).then((response) => {
+            console.log(response.data)
+            if (response.data.msg == "Success") {
+
             }
         }).catch((err) => {
             console.log(err)
         })
 
-        setTimeout(() => {
-            setBanner(null);
-        }, 3000);
-
-
-    }
-
-    async function unfollow() {
-        if (isFollowed == "Requested") {
-            const url = getServerAddress() + "/api/follow/decline/" + requestId
-            console.log(url)
-            const token = await AsyncStorage.getItem(tokenKeyName())
-            const headers = {
-                token: await encrypt(token)
-            }
-            await axios.post(url, {}, { headers }).then((response) => {
-                console.log(response.data)
-                if (response.data.msg == "Success") {
-
-                }
-            }).catch((err) => {
-                console.log(err)
-            })
-        } else {
-            const url = getServerAddress() + "/api/follow/unFollow/" + userData._id
-            console.log(url)
-            const token = await AsyncStorage.getItem(tokenKeyName())
-            const headers = {
-                token: await encrypt(token)
-            }
-            await axios.post(url, {}, { headers }).then((response) => {
-                console.log(response.data)
-                if (response.data.msg == "Success") {
-
-                }
-            }).catch((err) => {
-                console.log(err)
-            })
-        }
 
 
     }

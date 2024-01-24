@@ -14,13 +14,6 @@ let sWidth = Dimensions.get('window').width;
 
 export default function ConnectModal({ setConnectModal, isConnected, userData, refetch, }) {
 
-    // const [open, setOpen] = useState(false);
-    // const [value, setValue] = useState(null);
-    // const [items, setItems] = useState([
-    //     { label: 'Apple', value: 'apple' },
-    //     { label: 'Banana', value: 'banana' }
-    // ]);
-
     const [relation, setRelation] = useState(undefined)
 
 
@@ -44,37 +37,6 @@ export default function ConnectModal({ setConnectModal, isConnected, userData, r
         }
         setConnectModal(false)
 
-    }
-
-    async function getRequestId() {
-        const userId = await AsyncStorage.getItem("userId");
-        console.log(userId)
-        const kind = "connectReqs"
-        for (let i = 0; i < userData[kind].length; i++) {
-            if (userData[kind][i].senderId == userId) {
-                return userData[kind][i]._id
-            }
-        }
-        return null
-    }
-
-    async function unRequest() {
-        const reqId = await getRequestId()
-        console.log(reqId)
-
-        const url = getServerAddress() + "/api/connect/decline/" + reqId
-
-        const headers = {
-            token: await encrypt(await AsyncStorage.getItem(tokenKeyName()))
-        }
-
-        axios.post(url, {}, { headers }).then((response) => {
-            console.log(response.data)
-
-        }).catch((err) => {
-            console.log(err)
-        })
-        setConnectModal(!ConnectModal)
     }
 
     async function unConnect() {
@@ -147,9 +109,6 @@ export default function ConnectModal({ setConnectModal, isConnected, userData, r
                                 if (isConnected == "Connect") {
                                     connect()
                                     refetch()
-                                } else if (isConnected == "Requested") {
-                                    unRequest()
-                                    refetch()
                                 } else if (isConnected == "Connected") {
                                     unConnect()
                                     refetch()
@@ -185,7 +144,8 @@ const styles = StyleSheet.create({
     content: {
         width: sWidth * 0.8,
         // height: sHeight * 0.25,
-        paddingHorizontal: sWidth * 0.01,
+        paddingHorizontal: sWidth * 0.02,
+        paddingVertical: sHeight * 0.02,
         backgroundColor: "white",
         borderRadius: sWidth * 0.02
     },
@@ -200,7 +160,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: sWidth * 0.05
     },
     button: {
-        width: sWidth * 0.33,
+        width: sWidth * 0.31,
         height: sHeight * 0.06,
         backgroundColor: "red",
         alignItems: "center",
@@ -218,12 +178,12 @@ const styles = StyleSheet.create({
         fontFamily: "RobotoSlab-Bold"
     },
     modalText: {
-        height: sHeight * 0.10,
         color: "#084907",
         fontFamily: "RobotoSlab-Regular",
         textAlign: "center",
         textAlignVertical: "center",
-        fontSize: 18
+        fontSize: 18,
+        lineHeight: 28,
     },
     dropBtnTxtComb: {
         textAlign: 'center',

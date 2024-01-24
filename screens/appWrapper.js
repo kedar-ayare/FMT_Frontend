@@ -77,9 +77,9 @@ export default function AppWrapper() {
             }
 
             try {
-                // console.log("Send endpoint request")
+                console.log("Send endpoint request")
                 const response = await axios.get(endpoint, { headers })
-                // console.log(response.data)
+                console.log(response.data)
                 if (response.data.err === "Code-01") {
                     setLoggedIn(true);
                 } else {

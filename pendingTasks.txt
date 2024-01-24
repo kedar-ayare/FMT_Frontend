@@ -4,3 +4,8 @@
 -> In PostCard, inside the "allComment" component, the comments are just static, make them display using a loop or map function. this also goes for the replies
 -> In reomve searched function of the "search" page, make sure the changes are made in local storage as well
 -> In Search make sure only userId, img, and name is returned from backend instead of complete object
+-> DeCentralize the follower count and Connection count. Loading completeing array will cause RAM overload.
+
+NEXT TASK:
+Connect modal Button functions
+Solve the Banner Issues

@@ -16,6 +16,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { encrypt } from '../utilities/encrypt';
 
+import ErrBanner from './modals/errBanner';
 export default function UserScreen({ route }) {
 
 
@@ -26,7 +27,8 @@ export default function UserScreen({ route }) {
 
     const [isFollowed, setFollowed] = useState(false);
     const [isConnected, setConnected] = useState(false);
-    const [requestId, setRequestId] = useState(undefined);
+
+    // const [banner, setBanner] = useState(true);
 
     useEffect(() => {
         fetchUserDetails()
@@ -40,7 +42,6 @@ export default function UserScreen({ route }) {
     function checkIfRequested(userId, kind) {
         for (let i = 0; i < userData[kind].length; i++) {
             if (userData[kind][i].senderId == userId) {
-                setRequestId(userData[kind][i]._id)
                 return true
             }
         }
@@ -95,29 +96,34 @@ export default function UserScreen({ route }) {
         if (loading) {
             return <LoadingScreen />
         } else {
-            return <ScrollView
-                refreshControl={
-                    <RefreshControl refreshing={refreshing} onRefresh={() => onRefresh()} />
-                }
-            >
-                <NavHeader />
+            return <>
+                <ScrollView
+                    style={{ height: sHeight * 0.92, position: 'relative' }}
+                    refreshControl={
+                        <RefreshControl refreshing={refreshing} onRefresh={() => onRefresh()} />
+                    }
+                >
+                    <NavHeader />
 
-                {/* Height 0.22 */}
-                <UserScreenHeader
-                    userData={userData}
-                />
+                    {/* Height 0.22 */}
+                    <UserScreenHeader
+                        userData={userData}
+                    />
 
-                {/* Height 0.14 */}
-                <UserScreenButtons
-                    isFollowed={isFollowed}
-                    isConnected={isConnected}
-                    setConnected={setConnected}
-                    userData={userData}
-                    refetch={refetch}
-                    requestId={requestId}
+                    {/* Height 0.14 */}
+                    <UserScreenButtons
+                        isFollowed={isFollowed}
+                        isConnected={isConnected}
+                        setConnected={setConnected}
+                        userData={userData}
+                        refetch={refetch}
+                    />
+                </ScrollView>
 
-                />
-            </ScrollView>
+            </>
+            // { banner && <ErrBanner message={banner.message} type={banner.type} /> }
+
+
         }
     }
 

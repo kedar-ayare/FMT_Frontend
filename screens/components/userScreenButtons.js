@@ -1,11 +1,14 @@
 import { StyleSheet, Text, View, TouchableOpacity, Modal } from 'react-native'
 import { React, useEffect, useState } from 'react'
-import { sHeight, sWidth, tokenKeyName } from '../../utilities/data';
+import { getServerAddress, sHeight, sWidth, tokenKeyName } from '../../utilities/data';
 
 
 import FollowModal from '../modals/followModal';
 import ConnectModal from '../modals/connectModal';
-import ErrBanner from '../modals/errBanner';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { encrypt } from '../../utilities/encrypt';
+
+import axios from 'axios';
 
 
 export default function UserScreenButtons({
@@ -14,11 +17,42 @@ export default function UserScreenButtons({
     setConnected,
     userData,
     refetch,
-    requestId,
 }) {
     const [followModal, setFollowModal] = useState(false);
     const [connectModal, setConnectModal] = useState(false);
-    // const [banner, setBanner] = useState(null);
+
+
+    async function getRequestId(type) {
+        const userId = await AsyncStorage.getItem("userId");
+        console.log(userId)
+        const kind = type + "Reqs"
+        for (let i = 0; i < userData[kind].length; i++) {
+            if (userData[kind][i].senderId == userId) {
+                return userData[kind][i]._id
+            }
+        }
+        return null
+    }
+
+    async function unRequest(kind) {
+
+        const url = getServerAddress() + "/api/" + kind + "/decline/" + await getRequestId(kind)
+        console.log(url)
+
+        const headers = {
+            token: await encrypt(await AsyncStorage.getItem(tokenKeyName()))
+        }
+
+        axios.post(url, {}, { headers }).then((response) => {
+            console.log(response.data)
+            if (response.data.err == "OK") {
+                refetch()
+            }
+        }).catch((err) => {
+            console.log(err)
+        })
+
+    }
 
     return (
         <View style={styles.main}>
@@ -26,7 +60,12 @@ export default function UserScreenButtons({
             {/* Follow Button */}
             <TouchableOpacity
                 onPress={() => {
-                    setFollowModal(!followModal)
+                    if (isFollowed == "Requested") {
+                        unRequest("follow")
+                    } else {
+                        setFollowModal(!followModal)
+                    }
+                    // setFollowModal(!followModal)
                 }}
 
                 // style={(isFollowed) ? styles.buttonTrue : styles.buttonFalse}
@@ -42,8 +81,13 @@ export default function UserScreenButtons({
             {/* Connect Button */}
             <TouchableOpacity
                 onPress={() => {
-                    // setConnected(!isConnected)
-                    setConnectModal(!connectModal)
+                    if (isConnected == "Requested") {
+                        unRequest("connect")
+                    } else {
+                        setConnectModal(!connectModal)
+                    }
+                    // setConnectModal(!connectModal)
+
                 }}
                 style={(isConnected == "Connect") ? styles.buttonFalse : styles.buttonTrue}
             >
@@ -60,8 +104,7 @@ export default function UserScreenButtons({
                     isFollowed={isFollowed}
                     userData={userData}
                     refetch={refetch}
-                    requestId={requestId}
-                // setBanner={setBanner}
+                    getRequestId={getRequestId}
                 />
             </Modal>
 
@@ -73,10 +116,11 @@ export default function UserScreenButtons({
                     isConnected={isConnected}
                     userData={userData}
                     refetch={refetch}
+                    getRequestId={getRequestId}
                 />
             </Modal>
 
-            {/* {banner && <ErrBanner message={banner.message} type={banner.type} />} */}
+
         </View>
     )
 }

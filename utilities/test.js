@@ -2,6 +2,9 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
+import SelectDropdown from 'react-native-select-dropdown'
+
+
 export default function test() {
 
     async function removeToken() {

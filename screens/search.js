@@ -14,6 +14,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { getServerAddress, tokenKeyName } from '../utilities/data';
 import { encrypt } from '../utilities/encrypt';
+import { fetchDataWithTimeout } from '../utilities/api';
 
 
 export default function Search() {
@@ -81,10 +82,12 @@ export default function Search() {
         }
         try {
             const users = await axios.get(endpoint, { headers })
+            console.log(users)
             setSearchResult(users.data)
             setLoader(false)
         } catch (err) {
             searhResult([])
+            console.log("error broo", err)
         }
 
     }
