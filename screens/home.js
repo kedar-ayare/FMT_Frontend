@@ -3,7 +3,7 @@ import React from 'react'
 import { useNavigation } from '@react-navigation/native';
 
 import Header from './components/header';
-import UserPosts from './userPosts';
+import UserFeed from './userFeed';
 
 import { sHeight, sWidth } from '../utilities/data';
 
@@ -22,7 +22,7 @@ export default function Home() {
         <View style={styles.main}>
             <Header />
             <ScrollView>
-                <UserPosts allCommentTap={allCommentTap} />
+                <UserFeed allCommentTap={allCommentTap} />
             </ScrollView>
         </View>
     )

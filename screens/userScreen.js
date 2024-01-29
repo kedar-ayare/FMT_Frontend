@@ -16,7 +16,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { encrypt } from '../utilities/encrypt';
 
-import ErrBanner from './modals/errBanner';
+
 export default function UserScreen({ route }) {
 
 
@@ -85,7 +85,7 @@ export default function UserScreen({ route }) {
         console.log("Refetching")
         setTimeout(() => {
             fetchUserDetails()
-        }, 1000)
+        }, 500)
     }
 
     async function onRefresh() {
@@ -93,7 +93,7 @@ export default function UserScreen({ route }) {
     }
 
     function renderDisplay() {
-        if (loading) {
+        if (loading && userData == undefined) {
             return <LoadingScreen />
         } else {
             return <>
@@ -117,7 +117,11 @@ export default function UserScreen({ route }) {
                         setConnected={setConnected}
                         userData={userData}
                         refetch={refetch}
+                        setLoading={setLoading}
                     />
+                    {loading && <LoadingBlock />}
+                    <UserPosts />
+
                 </ScrollView>
 
             </>
@@ -156,12 +160,21 @@ export default function UserScreen({ route }) {
 
 const LoadingScreen = () => {
     return (
-        <View style={{ height: sHeight * 0.92, width: sWidth, alignItems: "center", justifyContent: "center" }}>
+        <View style={{ height: sHeight * 0.92, width: sWidth, alignItems: "center", justifyContent: "center", }}>
             <ActivityIndicator size={50} color="#5C735D" style={styles.loader} />
         </View>
 
     );
 };
+
+const LoadingBlock = () => {
+    return (
+        <View style={{ height: sHeight * 0.1, width: sWidth, alignItems: "center", justifyContent: "center", }}>
+            <ActivityIndicator size={50} color="#5C735D" style={styles.loader} />
+        </View>
+
+    );
+}
 
 
 const styles = StyleSheet.create({

@@ -17,11 +17,12 @@ export default function FollowModal({
     userData,
     refetch,
     setBanner,
+    setLoading
 }) {
 
 
     async function follow() {
-
+        setLoading(true)
         var reqType = "request"
         if (userData.accountStat != "Private") {
             reqType = "follow"
@@ -44,6 +45,7 @@ export default function FollowModal({
     }
 
     async function unfollow() {
+        setLoading(true)
         const url = getServerAddress() + "/api/follow/unFollow/" + userData._id
         console.log(url)
         const token = await AsyncStorage.getItem(tokenKeyName())

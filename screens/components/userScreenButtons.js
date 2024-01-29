@@ -17,6 +17,7 @@ export default function UserScreenButtons({
     setConnected,
     userData,
     refetch,
+    setLoading
 }) {
     const [followModal, setFollowModal] = useState(false);
     const [connectModal, setConnectModal] = useState(false);
@@ -35,7 +36,7 @@ export default function UserScreenButtons({
     }
 
     async function unRequest(kind) {
-
+        setLoading(true)
         const url = getServerAddress() + "/api/" + kind + "/decline/" + await getRequestId(kind)
         console.log(url)
 
@@ -105,6 +106,7 @@ export default function UserScreenButtons({
                     userData={userData}
                     refetch={refetch}
                     getRequestId={getRequestId}
+                    setLoading={setLoading}
                 />
             </Modal>
 
@@ -117,6 +119,7 @@ export default function UserScreenButtons({
                     userData={userData}
                     refetch={refetch}
                     getRequestId={getRequestId}
+                    setLoading={setLoading}
                 />
             </Modal>
 

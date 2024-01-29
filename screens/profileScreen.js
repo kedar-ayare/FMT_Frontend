@@ -6,7 +6,7 @@ import React, { useState } from 'react'
 
 import UserScreenHeader from './components/UserScreenHeader';
 import ProfileScreenButtons from './components/ProfileScreenButtons';
-import UserPosts from './userPosts';
+import UserPosts from './userFeed';
 
 
 

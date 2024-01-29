@@ -12,14 +12,15 @@ import axios from 'axios';
 let sHeight = Dimensions.get('window').height;
 let sWidth = Dimensions.get('window').width;
 
-export default function ConnectModal({ setConnectModal, isConnected, userData, refetch, }) {
+export default function ConnectModal({ setConnectModal, isConnected, userData, refetch, setLoading }) {
 
     const [relation, setRelation] = useState(undefined)
-
+    const [errMsg, setErrMsg] = useState(false)
 
     const relations = ["Father", "Mother", "Brother", "Sister", "Son", "Daughter"]
 
     async function connect() {
+        setLoading(true)
         if (relation == undefined) {
             console.log("Select a relation")
         } else {
@@ -40,7 +41,7 @@ export default function ConnectModal({ setConnectModal, isConnected, userData, r
     }
 
     async function unConnect() {
-
+        setLoading(true)
         const url = getServerAddress() + "/api/connect/unConnect/" + userData._id
 
         const headers = {
@@ -100,18 +101,24 @@ export default function ConnectModal({ setConnectModal, isConnected, userData, r
                     </Text>
 
 
+                    {errMsg && <Text style={styles.errMsg}>Select a Relation First !!</Text>}
 
                     {/* Buttons */}
                     <View style={styles.buttonBox}>
                         <TouchableOpacity
                             style={[styles.button, styles.confirm]}
                             onPress={async () => {
-                                if (isConnected == "Connect") {
-                                    connect()
-                                    refetch()
-                                } else if (isConnected == "Connected") {
-                                    unConnect()
-                                    refetch()
+                                if (relation != undefined) {
+                                    if (isConnected == "Connect") {
+                                        connect()
+                                        refetch()
+                                    } else if (isConnected == "Connected") {
+                                        unConnect()
+                                        refetch()
+                                    }
+                                } else {
+                                    console.log("chill bro")
+                                    setErrMsg(true)
                                 }
                             }}
                         >
@@ -193,5 +200,10 @@ const styles = StyleSheet.create({
     },
     username: {
         fontWeight: "bold"
+    },
+    errMsg: {
+        color: "red",
+        textAlign: "center",
+        fontWeight: "500"
     }
 })
