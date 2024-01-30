@@ -120,7 +120,9 @@ export default function UserScreen({ route }) {
                         setLoading={setLoading}
                     />
                     {loading && <LoadingBlock />}
-                    <UserPosts />
+                    <UserPosts
+                        userData={userData}
+                    />
 
                 </ScrollView>
 

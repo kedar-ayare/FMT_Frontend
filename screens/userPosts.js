@@ -5,9 +5,10 @@ import { sHeight, sWidth } from '../utilities/data'
 import { Modal } from '@ui-kitten/components'
 import { BlurView } from '@react-native-community/blur'
 
-export default function UserPosts() {
+export default function UserPosts({ userData }) {
 
     const [blurPost, setBlurPost] = useState(false)
+    const [imgLink, setImgLink] = useState("")
     const urls = [
         "https://myfamtree.000webhostapp.com/appImages/post1.jpg",
         "https://myfamtree.000webhostapp.com/appImages/post2.jpg",
@@ -23,7 +24,7 @@ export default function UserPosts() {
         for (let i = 0; i < urls.length; i++) {
             rowCount += 1
             result.push(
-                <PostBox url={urls[i]} key={i} blurPost={blurPost} setBlurPost={setBlurPost} />
+                <PostBox url={urls[i]} key={i} blurPost={blurPost} setBlurPost={setBlurPost} setImgLink={setImgLink} />
             )
         }
         return result
@@ -43,7 +44,10 @@ export default function UserPosts() {
                 visible={blurPost}
 
             >
-                <PostBlurBg></PostBlurBg>
+                <PostBlurBg
+                    userData={userData}
+                    imgLink={imgLink}
+                />
             </Modal>
         </View>
     )
@@ -51,14 +55,15 @@ export default function UserPosts() {
 
 
 
-const PostBox = ({ url, blurPost, setBlurPost }) => {
+const PostBox = ({ url, blurPost, setBlurPost, setImgLink }) => {
     return (
         <TouchableOpacity
             onPress={() => {
                 console.log("press")
             }}
-            onLongPress={() => {
+            onLongPress={async () => {
                 console.log("yamete kuda sai")
+                await setImgLink(url)
                 setBlurPost(true)
             }}
             onPressOut={() => {
@@ -73,81 +78,53 @@ const PostBox = ({ url, blurPost, setBlurPost }) => {
     );
 };
 
-const PostBlurBg = () => {
-    return <BlurView>
-        <View style={{ height: sHeight, width: sWidth, alignItems: "center", justifyContent: "center" }}>
-            <View style={styles.content}>
-                <Text style={styles.modalText}>Do you want to
-                    <Text style={styles.username}>kjsfbvnb</Text>?
-                </Text>
-                <View style={styles.buttonBox}>
-                    <TouchableOpacity
-                        style={[styles.button, styles.confirm]}
-                    >
-                        <Text
-                            style={styles.buttonText}>
-                            sdvnnksdbn
-                        </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={[styles.button, styles.cancel]}>
-                        <Text style={styles.buttonText}>Cancel</Text>
-                    </TouchableOpacity>
+const PostBlurBg = ({ userData, imgLink }) => {
+    console.log(imgLink)
+    return (
+        <BlurView>
+            <View style={{ height: sHeight, width: sWidth, alignItems: "center", justifyContent: "center" }}>
+                <View style={BlurBoxStyles.content}>
+                    <View style={BlurBoxStyles.postHeader}>
+                        <Image source={{ uri: userData.profileURL }} style={BlurBoxStyles.profImg}></Image>
+                        <Text style={BlurBoxStyles.username}>{userData.fname} {userData.lname}</Text>
+                    </View>
+                    <Image source={{ uri: imgLink }} style={BlurBoxStyles.mainImg}></Image>
                 </View>
             </View>
-        </View>
-    </BlurView>
+        </BlurView>
+    )
 }
-const styles = StyleSheet.create({
-    blurBox: {
-        height: sHeight,
-        width: sWidth,
-        alignItems: "center",
-        justifyContent: "center",
-    },
+const BlurBoxStyles = StyleSheet.create({
     content: {
         width: sWidth * 0.8,
-        height: sHeight * 0.25,
-        backgroundColor: "white",
         borderRadius: sWidth * 0.02
     },
-    modalText: {
-        height: sHeight * 0.15,
-        color: "#084907",
-        fontFamily: "RobotoSlab-Regular",
-        textAlign: "center",
-        textAlignVertical: "center",
-        fontSize: 18
+    postHeader: {
+        width: sWidth * 0.8,
+        height: sHeight * 0.08,
+        borderTopLeftRadius: sWidth * 0.02,
+        borderTopRightRadius: sWidth * 0.02,
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        backgroundColor: "white"
+    },
+    profImg: {
+        height: sHeight * 0.04,
+        aspectRatio: 1,
+        borderRadius: sHeight * 0.05,
+        marginLeft: sWidth * 0.03
     },
     username: {
         color: "#084907",
-        fontFamily: "RobotoSlab-Bold"
+        fontFamily: "RobotoSlab-Bold",
+        marginLeft: sWidth * 0.03
     },
-    buttonBox: {
-        height: sHeight * 0.1,
-        // backgroundColor: "yellow",
-
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-        paddingHorizontal: sWidth * 0.05
-    },
-    button: {
-        width: sWidth * 0.33,
-        height: sHeight * 0.06,
-        backgroundColor: "red",
-        alignItems: "center",
-        justifyContent: "center",
-        borderRadius: sWidth * 0.01,
-    },
-    cancel: {
-        backgroundColor: "#dc3545"
-    },
-    confirm: {
-        backgroundColor: "#4fb6ec"
-    },
-    buttonText: {
-        color: "white",
-        fontFamily: "RobotoSlab-Bold"
+    mainImg: {
+        width: sWidth * 0.8,
+        aspectRatio: 1,
+        borderBottomLeftRadius: sWidth * 0.02,
+        borderBottomRightRadius: sWidth * 0.02
     }
+
 })
