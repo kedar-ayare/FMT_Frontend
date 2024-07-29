@@ -51,7 +51,8 @@ export default function Search() {
     // Runs whenever user taps on any user card
     // navigates to that particular user's profile page
     async function userTap(userDets) {
-        const userId = await AsyncStorage.getItem("userId")
+        console.log("hello")
+        const userId = await AsyncStorage.getItem(tokenKeyName())
         if (userId != userDets[0]) {
             const tappedUser = {
                 "id": userDets[0],

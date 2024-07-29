@@ -9,3 +9,17 @@
 NEXT TASK:
 Connect modal Button functions
 Solve the Banner Issues
+
+
+
+New to create a stack system for the 5 screens in Home Wrapper. Set name of the previous screen in a stack whenever user navigates to some other screen using the nav before below.
+When user presses the system back, first check if the stack is empyt.
+If yes, then move out of app (let the system run it's own back function)
+If not, don't let system run the back operation, just navigate to the screen at the top of stack.
+
+
+
+Make a schema diagram of all the objects. 
+Add expamples/Demos of how objects like comments and requests work (especially when they are nested)
+
+

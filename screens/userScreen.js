@@ -140,9 +140,13 @@ export default function UserScreen({ route }) {
         const headers = {
             token: await encrypt(token)
         }
+        console.log("Headers ka token jo bhej rahe hai")
+        console.log(headers.token)
         axios.get(url, { headers }).then((response) => {
             console.log(response.data)
-            setUserData(response.data)
+            if (response.data !== userData) {
+                setUserData(response.data)
+            }
             setLoading(false)
         }).catch((error) => {
             console.log(error)

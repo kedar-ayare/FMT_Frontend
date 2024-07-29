@@ -30,7 +30,7 @@ export default function LogIn({ route }) {
 
 			if (result.data.err === undefined) {
 				console.log("LogIn Successful")
-				setUserId(decrypt(result.data.token), decrypt(result.data.userID))
+				setUserId(await decrypt(result.data.token), await decrypt(result.data.userID))
 			}
 			else {
 				console.log("Handle Error Here Based on error code")

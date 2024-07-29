@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { sHeight, sWidth } from '../utilities/data';
 
-import CommentCard from './components/commentCard';
+import CommentCard from './components/commentCard1';
 import { useNavigation } from '@react-navigation/native';
 import { StackActions } from '@react-navigation/native';
 
@@ -23,6 +23,7 @@ export default function AllComments({ route }) {
     function renderComments() {
         var commentList = []
         for (var i = 0; i < comments.length; i++) {
+            // console.log(comments[i])
             commentList.push(<View style={styles.commentBox}>
                 <CommentCard key={i} comment={comments[i]} />
             </View>)
@@ -66,8 +67,9 @@ const styles = StyleSheet.create({
 
     },
     header: {
-        height: sHeight * 0.09,
-        backgroundColor: "#084907",
+        height: sHeight * 0.07,
+        // backgroundColor: "#084907",
+        backgroundColor: "darkgrey",
         width: sWidth,
         display: "flex",
         flexDirection: "row",
@@ -75,17 +77,17 @@ const styles = StyleSheet.create({
         justifyContent: "flex-start"
     },
     crossBox: {
-        height: sHeight * 0.09,
-        width: sHeight * 0.09,
+        height: sHeight * 0.08,
+        width: sHeight * 0.08,
         alignItems: "center",
         justifyContent: "center"
     },
     cross: {
-        height: sHeight * 0.025,
-        width: sHeight * 0.025,
+        height: sHeight * 0.02,
+        width: sHeight * 0.02,
     },
     headerText: {
-        fontSize: 22,
+        fontSize: 18,
         fontFamily: "RobotoSlab-Regular",
         color: "#fff",
         paddingLeft: sWidth * 0.01

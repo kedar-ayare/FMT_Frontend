@@ -21,12 +21,12 @@ export default function ProfileScreenHeader({ userData }) {
                 </View>
 
                 <View style={styles.detailBox}>
-                    <Text style={styles.value}>{userData.followers.length}</Text>
+                    <Text style={styles.value}>{userData.followerCount}</Text>
                     <Text style={styles.item}>Followers</Text>
                 </View>
 
                 <View style={styles.detailBox}>
-                    <Text style={styles.value}>{userData.following.length}</Text>
+                    <Text style={styles.value}>{userData.followingCount}</Text>
                     <Text style={styles.item}>Following</Text>
                 </View>
             </View>

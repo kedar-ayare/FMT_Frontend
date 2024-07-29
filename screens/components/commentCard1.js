@@ -8,44 +8,28 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export default function CommentCard({ comment }) {
-    console.log(comment.replies.length)
     const [showReplies, setShowReplies] = useState(true)
     const [repliesArray, setRepliesArray] = useState([])
-    const [replyPointer, setReplyPointer] = useState(-1)
+    const [arrPointer, setArrPointer] = useState(0)
     const [loading, setLoading] = useState(false)
     useEffect(() => {
-
         setReplies()
-    }, [replyPointer])
+    }, [arrPointer])
 
-    function replyWindow(){
-        console.log("Info: ", replyPointer)
-        if(replyPointer == -1){
-            setReplyPointer(0)
-        }else if(replyPointer < comment.replies.length){
-            console.log("this")
-            setReplyPointer(replyPointer+2)
-        }else{
-            console.log("this now")
+    function incPointer(){
+        if(arrPointer < comment.replies.length){
+            setLoading(true)
+            setArrPointer(arrPointer + 2)
+        }else if(arrPointer >= comment.replies.length){
+            setRepliesArray([])
+            setArrPointer(0)
         }
     }
 
     async function setReplies(){
-        
-        const endPointer = Math.min(replyPointer + 2, comment.replies.length)
-
-        console.log("End Pointer", endPointer)
-        if(replyPointer >=0 && endPointer != repliesArray.length){
-            setLoading(true)
-
-
-            /*
-                Calculation for the endpointer
-                Takes min of the length of replies and (currentPointer + window) to avoid out of index error
-            */ 
-            
-            const replyIds = comment.replies.slice(replyPointer, endPointer)
-            
+        console.log("ArrPointer: ", arrPointer, " arr Len: ", repliesArray.length)
+        if(arrPointer > repliesArray.length){
+            const replyIds = comment.replies.slice(arrPointer-2,arrPointer)
 
             const url = getServerAddress() + "/api/comments/replies/"
             const headers = {
@@ -60,27 +44,29 @@ export default function CommentCard({ comment }) {
                 console.error(err)
             }
 
-
             var newReplyArray = [...repliesArray]
             if(replies != undefined){
                 for(let i = 0; i < replies.data.length; i+=1){
-                    newReplyArray.push(<ReplyCard key={i+replyPointer} comment={replies.data[i]}/>)
+                    newReplyArray.push(<ReplyCard key={i+arrPointer} comment={replies.data[i]}/>)
                 }
                 setRepliesArray(newReplyArray)
                 
             }
             setLoading(false)
-            newReplyArray = []
-            return []
-        }
-        console.log(endPointer == comment.replies.length)
-        if(endPointer == comment.replies.length){
-            setShowReplies(false)
         }
     }
     
     function renderReplies(){
+        console.log(arrPointer)
         return repliesArray
+    }
+
+    function replyText(){
+
+        return (comment.replies.length > 0)?
+                (arrPointer >= comment.replies.length)? "Hide Replies":
+                `Show ${comment.replies.length - arrPointer} Replies`
+                :"No Replies"
     }
 
     return (
@@ -106,21 +92,12 @@ export default function CommentCard({ comment }) {
             
             <TouchableOpacity style={{ width: sWidth * 0.75 }}
                 onPress={() => {
-                    if(showReplies){
-                        replyWindow()
-                    }else{
-                        // setShowReplies(true)
-                        setRepliesArray([])
-                    }
-                    
+                    incPointer()
                 }}
             >
                 <Text style={{ color: "#999", fontSize: 12, fontFamily: "RobotoSlab-Regular" }}>
                     {
-                        (comment.replies.length > 0)? 
-                            (!showReplies) ? "Hide Replies" 
-                            : `Show ${comment.replies.length - ((replyPointer<0)? 0:Math.min(replyPointer + 2, comment.replies.length))} Replies`
-                            : "No Replies"
+                        replyText()
                     }
                 </Text>
             </TouchableOpacity>

@@ -43,8 +43,6 @@ export default function AppWrapper() {
         user registers or logs in and refreshes the app.
     */
     async function setUserId(token, userId) {
-        // console.log("Token received")
-        // console.log(token)
         try {
             await AsyncStorage.setItem(tokenKeyName(), token)
             await AsyncStorage.setItem("userId", userId)
@@ -65,13 +63,14 @@ export default function AppWrapper() {
         var value;
         try {
             value = await AsyncStorage.getItem(tokenKeyName())
+            console.log("value: ", value)
             console.log("value: ", encrypt(value))
         } catch (e) {
-            console.log(e)
+            console.error("Error in fetching / Encrypting Token: ",e)
         }
         if (value != null) {
             var endpoint = getServerAddress() + "/api/validation/"
-            console.log(endpoint)
+            console.log("Endpoint Address",endpoint)
             const headers = {
                 token: encrypt(value)
             }

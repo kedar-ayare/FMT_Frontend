@@ -4,27 +4,31 @@ import { useState } from 'react'
 import { sHeight, sWidth } from '../utilities/data'
 import { Modal } from '@ui-kitten/components'
 import { BlurView } from '@react-native-community/blur'
+import { useNavigation } from '@react-navigation/native';
+
 
 export default function UserPosts({ userData }) {
 
-    const [blurPost, setBlurPost] = useState(false)
     const [imgLink, setImgLink] = useState("")
-    const urls = [
-        "https://myfamtree.000webhostapp.com/appImages/post1.jpg",
-        "https://myfamtree.000webhostapp.com/appImages/post2.jpg",
-        "https://myfamtree.000webhostapp.com/appImages/post3.jpg",
-        "https://myfamtree.000webhostapp.com/appImages/post3.jpg",
-        "https://myfamtree.000webhostapp.com/appImages/post2.jpg",
-        "https://myfamtree.000webhostapp.com/appImages/post1.jpg"
-    ]
+    // const urls = [
+    //     "https://myfamtree.000webhostapp.com/appImages/post1.jpg",
+    //     "https://myfamtree.000webhostapp.com/appImages/post2.jpg",
+    //     "https://myfamtree.000webhostapp.com/appImages/post3.jpg",
+    //     "https://myfamtree.000webhostapp.com/appImages/post3.jpg",
+    //     "https://myfamtree.000webhostapp.com/appImages/post2.jpg",
+    //     "https://myfamtree.000webhostapp.com/appImages/post1.jpg"
+    // ]
 
     function renderGrid() {
-        let rowCount = 0
         let result = []
-        for (let i = 0; i < urls.length; i++) {
-            rowCount += 1
+        for (let i = 0; i < userData.posts.length; i++) {
             result.push(
-                <PostBox url={urls[i]} key={i} blurPost={blurPost} setBlurPost={setBlurPost} setImgLink={setImgLink} />
+                <PostBox
+                    postData={userData.posts[i]}
+                    key={i}
+                    setImgLink={setImgLink}
+                    userData={userData}
+                />
             )
         }
         return result
@@ -40,40 +44,43 @@ export default function UserPosts({ userData }) {
                     renderGrid()
                 }
             </View>
-            <Modal
-                visible={blurPost}
-
-            >
-                <PostBlurBg
-                    userData={userData}
-                    imgLink={imgLink}
-                />
-            </Modal>
         </View>
     )
 }
 
+const PostBox = ({ postData, setImgLink, userData }) => {
 
+    const navigation = useNavigation();
+    const [blurPost, setBlurPost] = useState(false)
 
-const PostBox = ({ url, blurPost, setBlurPost, setImgLink }) => {
     return (
         <TouchableOpacity
             onPress={() => {
-                console.log("press")
+                console.log("Post Tapped")
+                navigation.navigate("PostDetails", { postData, userData })
             }}
+
             onLongPress={async () => {
-                console.log("yamete kuda sai")
-                await setImgLink(url)
+                console.log("Post Long Pressed")
                 setBlurPost(true)
             }}
             onPressOut={() => {
-                console.log("ara ara")
                 if (blurPost) {
                     setBlurPost(false)
                 }
             }}
         >
-            <Image style={{ width: sWidth / 3, height: sWidth / 3, aspectRatio: 1 }} source={{ uri: url }} />
+            <Image style={{ width: sWidth / 3, height: sWidth / 3, aspectRatio: 1 }} source={{ uri: postData.images[0] }} />
+
+            <Modal
+                visible={blurPost}
+            >
+                <PostBlurBg
+                    userData={userData}
+                    imgLink={postData.images[0]}
+                />
+            </Modal>
+
         </TouchableOpacity>
     );
 };
@@ -93,7 +100,8 @@ const PostBlurBg = ({ userData, imgLink }) => {
             </View>
         </BlurView>
     )
-}
+};
+
 const BlurBoxStyles = StyleSheet.create({
     content: {
         width: sWidth * 0.8,
