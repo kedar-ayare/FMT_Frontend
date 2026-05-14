@@ -22,7 +22,7 @@ const SearchWrapper = () => {
                 <Stack.Navigator>
                     <Stack.Screen name="UserList" component={Search} options={{ headerShown: false }} />
                     <Stack.Screen name="UserScreen" component={UserScreen} options={{ headerShown: false }} />
-                    <Stack.Screen name="ProfileScreen" component={ProfileScreen} options={{ headerShown: false }} />
+                    {/* <Stack.Screen name="ProfileScreen" component={ProfileScreen} options={{ headerShown: false }} /> */}
                     <Stack.Screen name="PostDetails" component={PostDetails} options={{ headerShown: false }} />
                     <Stack.Screen name="AllComments" component={AllComments} options={{ headerShown: false }} />
                 </Stack.Navigator>

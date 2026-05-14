@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 
 
 export default function UserPosts({ userData }) {
-
+    console.log(userData)
     const [imgLink, setImgLink] = useState("")
     // const urls = [
     //     "https://myfamtree.000webhostapp.com/appImages/post1.jpg",

@@ -1,21 +1,20 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView, TextInput, SafeAreaView, KeyboardAvoidingView, Platform } from 'react-native'
-import React, { useEffect, useRef, useCallback } from 'react'
-import { useState } from 'react';
-import { getServerAddress } from '../utilities/data';
+import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView, TextInput, KeyboardAvoidingView } from 'react-native'
+import React, { useEffect, useCallback, useContext } from 'react'
+import { useState, useRef } from 'react';
+import { getServerAddress } from '../../utilities/data';
 import axios from 'axios';
-import { sHeight, sWidth } from '../utilities/data';
-import { encrypt } from './encrypt';
+import { sHeight, sWidth } from '../../utilities/data';
+
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { tokenKeyName } from '../utilities/data';
+
+import { ImageContext } from './imageProvider';
 
 
+export default function NPAddImages({navigation}) {
 
-
-export default function NewPost() {
-
-    const [images, setImages] = useState([]);
-    const [caption, setCaption] = useState("");
+    const  {images, setImages} = useContext(ImageContext)
+    // const [images, setImages] = useState([]);
+    
 
     const [currentPage, setCurrentPage] = useState(0);
     const [index, setIndex] = useState(0);
@@ -51,12 +50,19 @@ export default function NewPost() {
 
     function renderImages() {
         var imageList = []
+        imageList.push(
+            <View
+                key={1000}
+                style={{height:sWidth, width:sWidth*0.1}}
+            />
+        )
         if (images !== undefined && images.length > 0) {
             for (let i = 0; i < images.length; i++) {
+
                 imageList.push(
-                    <View key={i} style={{width:sWidth, height:sWidth, backgroundColor:"#e6ece6"}}>
-                        <View style={{width:sWidth, height:sWidth, justifyContent:"center", alignItems:"center"}}>
-                            <Image style={{width:sWidth*0.88, height:sWidth*0.88}} source={{uri: images[i].uri}}/>
+                    <View key={i} style={{width:sWidth*0.8, height:sWidth, justifyContent:"center", alignItems:"center"}}>
+                        <View style={{width:sWidth*0.75, height:sWidth*0.75, justifyContent:"center", alignItems:"center"}}>
+                            <Image style={{width:sWidth*0.7, height:sWidth*0.7}} source={{uri: images[i].uri}}/>
                         </View>
                         
                         <TouchableOpacity key={i} style={styles.crossBox}
@@ -71,61 +77,42 @@ export default function NewPost() {
             }
         }
         imageList.push(
-            <TouchableOpacity key={100} style={styles.imgSelector} onPress={()=>{
-                if(images.length < 10){
-                    // console.log("Images: ", images)
-                    pickImage()
-                }else{
-                    console.log("Limit Reached")
-                }
-                
-            }}>
-                <View style={styles.plusBox}>
-                    <Image
-                        source={require("../assets/plus-bold.png")}
-                        style={styles.plus} />
-                </View>
-                <Text style={{color:"#084907", paddingTop:sHeight*0.02}}>Tap to select Images</Text>
-            </TouchableOpacity>
+            <View key={100} style={{width:sWidth*0.8, height:sWidth, justifyContent:"center", alignItems:"center"}}>
+                <TouchableOpacity style={styles.imgSelector} onPress={()=>{
+                    if(images.length < 10){
+                        // console.log("Images: ", images)
+                        pickImage()
+                    }else{
+                        console.log("Limit Reached")
+                    }
+                    
+                }}>
+                    <View style={styles.plusBox}>
+                        <Image
+                            source={require("../../assets/plus-bold.png")}
+                            style={styles.plus} />
+                    </View>
+                    <Text style={{color:"#084907", paddingTop:sHeight*0.02}}>Tap to select Images</Text>
+                </TouchableOpacity>
+            </View>
+            
         )
-        // console.log(imageList.length)
+        imageList.push(
+            <View
+                key={1001}
+                style={{height:sWidth, width:sWidth*0.1}}
+            />
+        )
         return imageList
     }
 
-    async function post() {
+    
 
-        console.log("Posting...")
-        const formdata = new FormData();
-        images.forEach((image, index) => {
-            formdata.append(
-                `files`, {
-                uri: image.uri,
-                type: image.type,
-                name: `image${index + 1}.jpg`,
-            });
-        });
-
-        formdata.append('caption',caption)
-
-        var url = getServerAddress() + "/api/posts/newPost/"
-
-        console.log(formdata)
-        const headers ={
-            'Content-Type': 'multipart/form-data',
-            token: encrypt(await AsyncStorage.getItem(tokenKeyName()))
-        }
-        console.log(headers)
-        axios.post(url, formdata, {
-            headers
-        }).then(response => {
-            console.log(response.data)   
-        }).catch(error => {
-            console.error(error)
-        })
+    function next(){
+        console.log("Next")
+        navigation.navigate('AddDetails')
     }
-
-
-    const handleScroll = useCallback((event) => {
+    const handleScroll1 = useCallback((event) => {
         const newPage = Math.round(event.nativeEvent.contentOffset.x / sWidth);
         
         if (newPage !== currentPage) {
@@ -142,10 +129,25 @@ export default function NewPost() {
     }, [currentPage, sWidth]);
 
 
+    const scrollViewRef = useRef(null); 
+
+    const handleScrollEnd = (event) => {
+        
+        const xOffset = event.nativeEvent.contentOffset.x;
+        const newPage = Math.round(xOffset / (sWidth*0.8)); // Calculate the nearest page based on offset
+        setCurrentPage(newPage);
+        // Scroll to the exact position of the closest page to ensure correct snapping
+        if (scrollViewRef.current) {
+            scrollViewRef.current.scrollTo({ x: newPage * sWidth*0.8, animated: true });
+        }
+    };
+
+    const onLayout = () => {
+        if (scrollViewRef.current) {
+          scrollViewRef.current.scrollTo({ x: currentPage * sWidth*0.8, animated: false });
+        }
+    };
     return (  
-        <KeyboardAvoidingView 
-            style={{flex:1}}
-        >
             <ScrollView>
                 <View style={styles.main}>
                     <ScrollView>
@@ -155,53 +157,43 @@ export default function NewPost() {
                             <TouchableOpacity style={styles.postButton}
                                 onPress={()=>{
                                     if(images.length > 0){
-                                        post()
+                                        next()
                                     }else{
                                         console.log("No Images Selected")
                                     }
                                 }}
                             >
-                                <Text style={styles.postButtonText}>Post</Text>
+                                <Text style={styles.postButtonText}>Next</Text>
                             </TouchableOpacity>
                         </View>
-                        <View style={{width:sWidth, backgroundColor:"white", height:sHeight*0.005}}></View> 
-                        <View>
+                        {/* <View style={{width:sWidth, backgroundColor:"red", height:sHeight*0.005}}></View>  */}
+                        <View style={{width:sWidth, alignItems:"center"}}>
+                            <View style={{height:sHeight*0.1}} />
                             <ScrollView
-                                horizontal={true}
-                                pagingEnabled={true}
-                                alwaysBounceHorizontal={true}
-                                onMomentumScrollEnd={handleScroll}
+                                style={{width:sWidth, height:sWidth, borderRadius: 10}
+                            
+                            }
+                                horizontal
+                                pagingEnabled={false}  // Disable default pagination since we are handling it manually
+                                ref={scrollViewRef}
+                                onMomentumScrollEnd={handleScrollEnd}
+                                showsHorizontalScrollIndicator={false}
+                                snapToInterval={sWidth*0.8}  // Snap to custom page width
+                                decelerationRate="fast"     // Optional: Fast deceleration for better snapping effect
+                                onLayout={onLayout}
+
                             >
                                 {
                                     renderImages()
                                 }
                             </ScrollView>
                         </View>
-                        
-                        
-                        {/* <Text style={{color:"black"}}>{images.length}</Text> */}
-                        {/* <Slider index={index}>
-
-                        </Slider> */}
-                        <View style={{width:sWidth, backgroundColor:"white", height:sHeight*0.005}}></View> 
-                        <View style={{width:sWidth,justifyContent:'flex-end', height:sHeight*0.2}}>
-                            <TextInput
-                                style={{backgroundColor:"#fafafa", height:sHeight*0.2, textAlignVertical:'top', padding:15, color:"#084907", fontFamily:"RobotoSlab-Bold"}}
-                                onChangeText={setCaption}
-                                value={caption}
-                                multiline={true}
-                                placeholder='Enter Caption ...'
-                                placeholderTextColor={"#5C735D"}
-                            />
-                        </View>
                     </ScrollView>
                         
                 </View>
             </ScrollView>
-            
-        </KeyboardAvoidingView>
-
     )
+
 }
 
 
@@ -264,7 +256,8 @@ const styles = StyleSheet.create({
     main: {
         width: sWidth,
         height: sHeight * 0.92,
-        backgroundColor: "white",
+        backgroundColor: "white",   
+        // backgroundColor:"red"
     },
     header: {
         backgroundColor: "#fafafa",
@@ -299,11 +292,11 @@ const styles = StyleSheet.create({
         fontSize: 18
     },
     imgSelector:{
-        width: sWidth,
-        height: sHeight*0.5,
+        width: sWidth*0.8,
+        height: sWidth*0.8,
         backgroundColor:"#e6ece6",
         justifyContent:"center",
-        alignItems:"center"
+        alignItems:"center",
     },
     plusBox:{
         height: sHeight*0.04,
@@ -323,8 +316,8 @@ const styles = StyleSheet.create({
         width:sWidth*0.06, 
         backgroundColor: "green", 
         borderRadius:sHeight,
-        top:sWidth*0.03, 
-        right:sWidth*0.03, 
+        top:sWidth*0.125, 
+        right:sWidth*0.025, 
         justifyContent:"center", 
         alignItems:"center",
     },

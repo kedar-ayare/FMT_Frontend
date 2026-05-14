@@ -19,8 +19,6 @@ export default function FollowModal({
     setBanner,
     setLoading
 }) {
-
-
     async function follow() {
         setLoading(true)
         var reqType = "request"

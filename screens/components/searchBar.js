@@ -19,7 +19,7 @@ export default function SearchBar({ query, setQuery, handleInput, handleBackPres
 
                 </TouchableOpacity>
                 <TextInput style={styles.searchField}
-                    placeholder='Enter Username'
+                    placeholder='Search User Name'
                     placeholderTextColor="#9C9A9A"
                     onEndEditing={handleInput}
                     onChangeText={(val) => {
@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
         width: sWidth,
         height: sHeight * 0.12,
         backgroundColor: "white",
+        // backgroundColor:"red",
         alignItems: "center",
         justifyContent: "center",
         shadowColor: "yellow",
@@ -44,29 +45,29 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.9
     },
     searchBox: {
-        height: sHeight * 0.08,
+        height: sHeight * 0.06,
         width: sWidth * 0.9,
         backgroundColor: "#F6F6F6",
         display: "flex",
         flexDirection: "row"
     },
     imgBox: {
-        height: sHeight * 0.08,
-        width: sHeight * 0.08,
+        height: sHeight * 0.06,
+        width: sHeight * 0.06,
         // backgroundColor: "red",
         alignItems: "center",
         justifyContent: "center",
     },
     image: {
-        height: sHeight * 0.035,
-        width: sHeight * 0.035,
+        height: sHeight * 0.025,
+        width: sHeight * 0.025,
     },
     searchField: {
-        height: sHeight * 0.08,
+        height: sHeight * 0.06,
         width: sWidth * 0.9 - sHeight * 0.08,
         // backgroundColor: "yellow",
         fontFamily: "RobotoSlab-Regular",
-        fontSize: 18,
+        fontSize: 12,
         color: "black",
         paddingLeft: sWidth * 0.04,
     }

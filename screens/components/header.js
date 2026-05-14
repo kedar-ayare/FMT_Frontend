@@ -18,12 +18,13 @@ const styles = StyleSheet.create({
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-
+        // backgroundColor: "red",
+        paddingTop: sHeight *0.01
     },
     headerText: {
         color: "#084907",
         fontFamily: "RobotoSlab-Bold",
-        fontSize: 25,
+        fontSize: 20,
     }
 
 })

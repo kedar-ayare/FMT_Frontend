@@ -25,9 +25,10 @@ const styles = StyleSheet.create({
         height: sHeight * 0.05,
         justifyContent: "flex-end",
         backgroundColor: "#5C735D"
+        // backgroundColor:"red"
     },
     cross: {
-        height: sHeight * 0.025,
+        height: sHeight * 0.018,
         aspectRatio: 1,
         marginLeft: sWidth * 0.05
     }

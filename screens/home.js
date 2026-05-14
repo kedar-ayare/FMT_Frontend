@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import Header from './components/header';
 import UserFeed from './userFeed';
 
-import { sHeight, sWidth } from '../utilities/data';
+import { sHeight, sWidth, wrapperScreenHeights } from '../utilities/data';
 
 export default function Home() {
 
@@ -30,7 +30,7 @@ export default function Home() {
 
 const styles = StyleSheet.create({
     main: {
-        height: sHeight * 0.92,
+        height: wrapperScreenHeights,
         backgroundColor: "#f9f9f9",
         width: sWidth
     }

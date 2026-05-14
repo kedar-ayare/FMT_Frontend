@@ -15,6 +15,10 @@ import MainWrapper from './screens/mainWrapper';
 import LoadingNoNet from './screens/loadingNoNet';
 import YourScreen from './testingComponents/main';
 import App from './testingComponents/main';
+import npAddImages from './screens/newPost/npAddImages';
+import NewPost from './utilities/test';
+import NewPostWrapper from './screens/newPost/newPostWrapper';
 
+// AppRegistry.registerComponent(appName, () => NewPostWrapper);
 
-AppRegistry.registerComponent(appName, () => AppWrapper);
+AppRegistry.registerComponent(appName, () => AppWrapper);   

@@ -1,4 +1,11 @@
--> In bottomNav, replace the redundant code with a new component, and try to display the items using for loop with all data in an array.
+- Go through every route in backend to make sure wherever we are following or unfollowing, the count is updated as well
+
+User Screen:
+- Make sure posts, followers and following is shoing properly.
+- Modify the buttons to look a bit more better
+- Add a tab section to swtich between posts and the connection tree
+
+
 -> Figuring our scroll feature for posts with multiple images
 -> In PostCard.js the renderpost function is a mess, figure it out and clean it
 -> In PostCard, inside the "allComment" component, the comments are just static, make them display using a loop or map function. this also goes for the replies
@@ -21,5 +28,10 @@ If not, don't let system run the back operation, just navigate to the screen at 
 
 Make a schema diagram of all the objects. 
 Add expamples/Demos of how objects like comments and requests work (especially when they are nested)
+
+
+
+There's a thing called Context in which a stack navigator can be wrapped for better passing of states between it's screens.
+Check that out and try to implement the same for screens wherever stack navigation is used. (Mostly all wrappers)
 
 

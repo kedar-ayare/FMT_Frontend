@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView, TextInput } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react';
 import { getServerAddress } from '../utilities/data';
 import axios from 'axios';
@@ -15,7 +15,13 @@ export default function NewPost() {
     const [images, setImages] = useState([]);
     const [caption, setCaption] = useState("");
 
+    const [mediaFiles, setMediaFiles] = useState([]);
 
+
+    // useEffect(() => {
+    //     pickImages()
+    // },[])
+    
     // Image picker function
     const pickImage = () => {
         launchImageLibrary(options, (value) => {
@@ -26,6 +32,15 @@ export default function NewPost() {
         })
 
     };
+
+    // const pickImages = () => {
+    //     launchImageLibrary({mediaType: 'mixed', selectionLimit: 10}, response => {
+    //         if(!response.didCancel && !response.errorCode){
+    //             setMediaFiles(response.assets)
+    //             console.log(response.assets)
+    //         }
+    //     })
+    // }
 
 
     // Options for the image picker

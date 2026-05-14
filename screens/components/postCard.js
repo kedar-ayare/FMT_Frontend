@@ -12,9 +12,12 @@ const MAX_IMAGE_HEIGHT = sHeight * 0.3;
 export default function PostCard({ postData, allCommentTap }) {
 
     function commentsRender() {
+        //No Comments
         if (postData.comments.length === 0) {
             return <></>
-        } else if (postData.comments.length === 1) {
+        } 
+        //Just 1 comment
+        else if (postData.comments.length === 1) {
             return <CommentCard comment={postData.comments[0]} />
         }
         else {
@@ -186,8 +189,6 @@ const styles = StyleSheet.create({
         marginLeft: sHeight * 0.02
     },
     caption: {
-        // backgroundColor: "blue",
-        // paddingVertical: sHeight * 0.0,
         paddingHorizontal: sHeight * 0.01,
         flexDirection: "row",
     },
@@ -210,7 +211,6 @@ const styles = StyleSheet.create({
         fontFamily: "RobotoSlab-Regular",
         fontSize: 22
     },
-
     actions: {
         height: sHeight * 0.06,
         width: sWidth,
@@ -224,14 +224,9 @@ const styles = StyleSheet.create({
         width: sHeight * 0.05,
         justifyContent: "center",
         alignItems: "center",
-        // backgroundColor: "yellow",
-        // borderColor: "black",
-        // borderWidth: 1
     },
     actionIcon: {
         height: sHeight * 0.035,
         aspectRatio: 1
     }
-
-
 })

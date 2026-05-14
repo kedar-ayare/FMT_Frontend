@@ -105,6 +105,7 @@ export default function Search() {
                         name={prevSearched[i]["name"]}
                         img={prevSearched[i]["img"]}
                         userTap={userTap}
+                        key={i}
                         removeSearched={removeSearched}
                     />
 
@@ -113,7 +114,7 @@ export default function Search() {
         }
         return <ScrollView>
             <View style={styles.searchPrev}>
-                <Text style={{ color: "#999", fontFamily: "RobotoSlab-Bold", fontSize: 16, marginTop: sHeight * 0.02, marginBottom: sHeight * 0.02 }}>Previously Searched Profiles</Text>
+                <Text style={{ color: "#999", fontFamily: "RobotoSlab-Bold", fontSize: 16, marginTop: sHeight * 0.03, marginBottom: sHeight * 0.04 }}>Previously Searched Profiles</Text>
                 {
                     userCards.map((card, index) => {
                         return <React.Fragment key={index}>{card}</React.Fragment>
@@ -135,6 +136,7 @@ export default function Search() {
                     <UserCard name={searhResult[i]["fname"] + " " + searhResult[i]["lname"]}
                         img={searhResult[i]["profileURL"]}
                         userTap={userTap}
+                        key={i}
                         userId={searhResult[i]["_id"]}
                     />
                 )
@@ -224,7 +226,7 @@ export default function Search() {
 }
 const styles = StyleSheet.create({
     main: {
-        height: sHeight * 0.92,
+        height: sHeight * 0.94,
         width: sWidth,
         backgroundColor: "white",
     },

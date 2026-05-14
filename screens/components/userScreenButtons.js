@@ -19,6 +19,7 @@ export default function UserScreenButtons({
     refetch,
     setLoading
 }) {
+    console.log("Inside userScreenButtons")
     const [followModal, setFollowModal] = useState(false);
     const [connectModal, setConnectModal] = useState(false);
 
@@ -134,9 +135,10 @@ const styles = StyleSheet.create({
     main: {
         width: sWidth,
         backgroundColor: "#5C735D",
+        // backgroundColor:"red",
         display: "flex",
         flexDirection: "row",
-        paddingVertical: sHeight * 0.02,
+        paddingVertical: sHeight * 0.015,
         alignItems: "center",
         justifyContent: "space-between",
         paddingHorizontal: sWidth * 0.04
@@ -153,16 +155,17 @@ const styles = StyleSheet.create({
     },
     buttonFalse: {
         width: sWidth * 0.44,
-        height: sHeight * 0.05,
+        height: sHeight * 0.045,
         backgroundColor: "white",
         alignItems: "center",
         justifyContent: "center",
+        borderRadius: 2,
 
     },
     btnTextFalse: {
         color: "#084907",
         fontFamily: "RobotoSlab-Bold",
-        fontSize: 16
+        fontSize: 15
     },
     btnTextTrue: {
         color: "white",

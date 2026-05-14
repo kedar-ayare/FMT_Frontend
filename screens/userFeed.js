@@ -68,8 +68,10 @@ export default function UserFeed({ allCommentTap }) {
 
     ]
 
-
-    // Funcion that renders posts based on the "posts" variable
+    function getAllPosts(){
+        return 0
+    }
+    
 
     function renderPosts() {
 

@@ -3,13 +3,17 @@ import React from 'react'
 import { sHeight, sWidth } from '../../utilities/data'
 
 export default function ProfileScreenHeader({ userData }) {
+    console.log("inside header")
+    console.log(userData.posts)
     return (
         <View style={styles.main}>
 
-            <View style={{ height: sHeight * 0.13, display: "flex", flexDirection: "row", width: sWidth, alignItems: "flex-end" }}>
+            <View style={styles.subBox}>
 
                 <View style={styles.imgBox}>
-                    <Image source={{ uri: userData.profileURL }}
+                    <Image source={{ 
+                        uri: userData.profileURL 
+                    }}
                         style={styles.profileImg}
                     />
 
@@ -44,7 +48,16 @@ const styles = StyleSheet.create({
         height: sHeight * 0.22,
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center"
+        justifyContent: "center",
+        paddingHorizontal: sWidth * 0.04
+    },
+    subBox:{ 
+        height: sHeight * 0.13, 
+        display: "flex", 
+        flexDirection: "row", 
+        width: sWidth*0.92, 
+        alignItems: "center", 
+        // backgroundColor:"yellow" 
     },
     profileImg: {
         height: sHeight * 0.11,
@@ -56,19 +69,23 @@ const styles = StyleSheet.create({
         fontFamily: "RobotoSlab-Bold",
         fontSize: 18,
         color: "white",
-        paddingLeft: sWidth * 0.31 - sHeight * 0.13,
-        marginTop: sHeight * 0.005
+        paddingLeft: sWidth * 0.29 - sHeight * 0.13,
+        marginTop: sHeight * 0.005,
         // backgroundColor: "yellow"
     },
     imgBox: {
-        width: sWidth * 0.31,
+        width: sWidth * 0.29,
         // backgroundColor: "black",
         alignItems: "center",
+        height: "100%",
+        display: "flex",
+        justifyContent:"center",
+        alignItems:"center"
     },
     detailBox: {
-        width: sWidth * 0.23,
+        width: sWidth * 0.21,
         // backgroundColor: "black",
-        alignItems: "center",
+        alignItems: "center"
     },
     value: {
         fontFamily: "RobotoSlab-Bold",

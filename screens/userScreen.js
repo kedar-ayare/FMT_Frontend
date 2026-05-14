@@ -35,8 +35,10 @@ export default function UserScreen({ route }) {
     }, [])
 
     useEffect(() => {
+
         initialRun()
     }, [userData])
+
 
 
     function checkIfRequested(userId, kind) {
@@ -143,9 +145,10 @@ export default function UserScreen({ route }) {
         console.log("Headers ka token jo bhej rahe hai")
         console.log(headers.token)
         axios.get(url, { headers }).then((response) => {
+            console.log("here")
             console.log(response.data)
             if (response.data !== userData) {
-                setUserData(response.data)
+                setUserData(response.data.userObj)
             }
             setLoading(false)
         }).catch((error) => {

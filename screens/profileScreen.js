@@ -17,6 +17,7 @@ export default function ProfileScreen({ logout }) {
         console.log("Refreshed")
         setRefreshing(false)
     }
+    console.log("ithe")
     return (
         <ScrollView
             refreshControl={

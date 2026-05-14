@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#fbfbfb"
     },
     content: {
-        height: sHeight * 0.9,
+        height: sHeight * 0.93,
     }
 
 })
